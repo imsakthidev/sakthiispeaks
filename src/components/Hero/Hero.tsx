@@ -26,7 +26,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Software Engineer & Creator @SakthiSpeaks
+              Software Engineer & Content Creator
             </motion.div>
             
             <h1 className={styles.title}>
