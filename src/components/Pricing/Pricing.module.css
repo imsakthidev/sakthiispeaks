@@ -33,6 +33,65 @@
   margin: 1.5rem auto 0;
 }
 
+/* Tabs */
+.tabsContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tabsWrapper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #a1a1aa;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.activeTab {
+  background: var(--primary-color);
+  color: #000;
+}
+
+.activeTab:hover {
+  background: var(--primary-color);
+  color: #000;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Pricing Cards Grid */
 .cardsGrid {
   display: grid;
@@ -140,6 +199,9 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .ctaButton:hover {
@@ -154,6 +216,81 @@
 
 .popularCard .ctaButton:hover {
   background: #fff;
+}
+
+/* Ultimate Package */
+.ultimatePackage {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(56, 189, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ultimateHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ultimateBadge {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.ultimateTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.ultimatePrice {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.ultimatePrice span {
+  font-size: 1.2rem;
+  color: #a1a1aa;
+  font-weight: 500;
+}
+
+.ultimateDesc {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.ultimateFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.uFeature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #e4e4e7;
+  font-size: 1.05rem;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Services Grid */
@@ -299,5 +436,32 @@
   
   .planPrice {
     font-size: 2rem;
+  }
+
+  .tabsWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .tab {
+    justify-content: center;
+  }
+  
+  .ultimatePackage {
+    padding: 2rem;
+  }
+  
+  .ultimateTitle {
+    font-size: 1.8rem;
+  }
+  
+  .ultimatePrice {
+    font-size: 2.2rem;
+  }
+  
+  .serviceItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }

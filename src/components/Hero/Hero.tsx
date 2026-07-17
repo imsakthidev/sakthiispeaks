@@ -26,7 +26,7 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Software Engineer & Content Creator
+              Digital Growth Consultant & Content Strategist
             </motion.div>
             
             <h1 className={styles.title}>
@@ -34,7 +34,7 @@ export default function Hero() {
             </h1>
             
             <p className={styles.subtitle}>
-              I build AI-powered software, desktop applications, and modern web solutions while creating educational content that reaches hundreds of thousands of viewers. Let's build something amazing together.
+              I help businesses and personal brands build a powerful online presence. From premium web development to viral content strategies, I deliver complete digital growth solutions.
             </p>
             
             <div className={styles.actions}>

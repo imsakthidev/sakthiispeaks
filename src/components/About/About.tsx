@@ -18,10 +18,10 @@ export default function About() {
         <div className={styles.content}>
           <div className={styles.textSection}>
             <p className={styles.text}>
-              I'm Sakthivelpandian P, professionally known as Sakthi. With a background in Computer Science Engineering and experience in national service through the Central Armed Police Forces, I combine discipline with technical problem-solving.
+              I'm Sakthivelpandian P, a Digital Growth Consultant and Content Strategist. With a foundation in Computer Science Engineering and experience in national service through the Central Armed Police Forces, I combine analytical discipline with creative storytelling.
             </p>
             <p className={styles.text}>
-              I build AI-powered software, desktop applications, and modern web solutions while creating educational content that reaches a wide audience under the brand "Sakthi Speaks". I also have experience teaching Computer Science at a matriculation school, which fueled my deep passion for content creation and sharing knowledge. I'm passionate about artificial intelligence, software engineering, and building products that solve real-world problems.
+              I help businesses and personal brands scale their online presence by offering a unique combination of premium web development and viral content strategies. Under my own brand, "Sakthi Speaks", my educational content reaches hundreds of thousands of viewers. My background teaching Computer Science fueled my deep passion for sharing knowledge, and I now use those skills to architect digital growth for my clients.
             </p>
             <div className={styles.stats}>
               <div className={styles.statBox}>
