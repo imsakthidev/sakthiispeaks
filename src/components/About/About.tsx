@@ -21,7 +21,7 @@ export default function About() {
               I'm Sakthivelpandian P, professionally known as Sakthi. With a background in Computer Science Engineering and experience in national service through the Central Armed Police Forces, I combine discipline with technical problem-solving.
             </p>
             <p className={styles.text}>
-              I build AI-powered software, desktop applications, and modern web solutions while creating educational content that reaches a wide audience under the brand "Sakthi Speaks". I'm passionate about artificial intelligence, software engineering, and building products that solve real-world problems.
+              I build AI-powered software, desktop applications, and modern web solutions while creating educational content that reaches a wide audience under the brand "Sakthi Speaks". I also have experience teaching Computer Science at a matriculation school, which fueled my deep passion for content creation and sharing knowledge. I'm passionate about artificial intelligence, software engineering, and building products that solve real-world problems.
             </p>
             <div className={styles.stats}>
               <div className={styles.statBox}>
