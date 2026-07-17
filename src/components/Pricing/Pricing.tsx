@@ -6,6 +6,14 @@ import styles from './Pricing.module.css';
 export default function Pricing() {
   const [activeTab, setActiveTab] = useState<'web' | 'video' | 'content' | 'social' | 'ai' | 'growth'>('web');
 
+  const handleGetStarted = (planName: string) => {
+    const messageEl = document.getElementById('message') as HTMLTextAreaElement;
+    if (messageEl) {
+      messageEl.value = `I am interested in the ${planName}.`;
+    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="pricing" className="section">
       <div className={`container ${styles.container}`}>
@@ -63,7 +71,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 2 Revisions</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 3–5 Days</li>
                 </ul>
-                <a href="#contact" className={styles.ctaButton}>Get Started</a>
+                <button onClick={() => handleGetStarted('Starter Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
 
               <div className={styles.card}>
@@ -81,7 +89,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 5 Revisions</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 5–7 Days</li>
                 </ul>
-                <a href="#contact" className={styles.ctaButton}>Get Started</a>
+                <button onClick={() => handleGetStarted('Professional Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
 
               <div className={`${styles.card} ${styles.popularCard}`}>
@@ -100,7 +108,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 30 Days Support</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 7–14 Days</li>
                 </ul>
-                <a href="#contact" className={styles.ctaButton}>Get Started</a>
+                <button onClick={() => handleGetStarted('Business Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
 
               <div className={styles.card}>
@@ -117,7 +125,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Email Auto, Security & Animations</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 3 Months Support</li>
                 </ul>
-                <a href="#contact" className={styles.ctaButton}>Get Started</a>
+                <button onClick={() => handleGetStarted('Enterprise Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
           </div>
@@ -140,6 +148,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Background Music</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Basic Color Correction</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Basic Shorts Editing')} className={styles.ctaButton}>Get Started</button>
               </div>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -153,6 +162,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> AI Effects & Color Grading</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Hook Optimization</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Pro Shorts Editing')} className={styles.ctaButton}>Get Started</button>
               </div>
               <div className={`${styles.card} ${styles.popularCard}`}>
                 <div className={styles.popularBadge}>Best For Growth</div>
@@ -167,26 +177,39 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced Editing & VFX</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Custom Thumbnail Included</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Viral Shorts Editing')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
 
             <h3 className={styles.sectionTitle} style={{marginTop: '2rem'}}>🎥 Long Form Editing</h3>
             <div className={styles.servicesGrid}>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>5–10 Minutes Video</span>
-                <span className={styles.servicePrice}>₹3,500/video</span>
+                <div>
+                  <div className={styles.serviceName}>5–10 Minutes Video</div>
+                  <div className={styles.servicePrice}>₹3,500/video</div>
+                </div>
+                <button onClick={() => handleGetStarted('5-10 Min Long Form Video Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>10–20 Minutes Video</span>
-                <span className={styles.servicePrice}>₹6,000/video</span>
+                <div>
+                  <div className={styles.serviceName}>10–20 Minutes Video</div>
+                  <div className={styles.servicePrice}>₹6,000/video</div>
+                </div>
+                <button onClick={() => handleGetStarted('10-20 Min Long Form Video Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>Documentary Style</span>
-                <span className={styles.servicePrice}>₹10,000–25,000/video</span>
+                <div>
+                  <div className={styles.serviceName}>Documentary Style</div>
+                  <div className={styles.servicePrice}>₹10,000–25,000/video</div>
+                </div>
+                <button onClick={() => handleGetStarted('Documentary Style Video Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>Podcast Editing</span>
-                <span className={styles.servicePrice}>₹5,000/video</span>
+                <div>
+                  <div className={styles.serviceName}>Podcast Editing</div>
+                  <div className={styles.servicePrice}>₹5,000/video</div>
+                </div>
+                <button onClick={() => handleGetStarted('Podcast Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
             </div>
 
@@ -201,32 +224,53 @@ export default function Pricing() {
                 <h3 className={styles.sectionTitle}>✍️ Content Writing</h3>
                 <div className={styles.servicesGrid} style={{gridTemplateColumns: '1fr'}}>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Instagram Caption</span>
-                    <span className={styles.servicePrice}>₹300</span>
+                    <div>
+                      <div className={styles.serviceName}>Instagram Caption</div>
+                      <div className={styles.servicePrice}>₹300</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Instagram Caption Writing')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>LinkedIn Post</span>
-                    <span className={styles.servicePrice}>₹700</span>
+                    <div>
+                      <div className={styles.serviceName}>LinkedIn Post</div>
+                      <div className={styles.servicePrice}>₹700</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('LinkedIn Post Writing')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Blog Article (1000 words)</span>
-                    <span className={styles.servicePrice}>₹2,000</span>
+                    <div>
+                      <div className={styles.serviceName}>Blog Article (1000 words)</div>
+                      <div className={styles.servicePrice}>₹2,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Blog Article Writing')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Website Content</span>
-                    <span className={styles.servicePrice}>₹5,000</span>
+                    <div>
+                      <div className={styles.serviceName}>Website Content</div>
+                      <div className={styles.servicePrice}>₹5,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Website Content Writing')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Product Description</span>
-                    <span className={styles.servicePrice}>₹500</span>
+                    <div>
+                      <div className={styles.serviceName}>Product Description</div>
+                      <div className={styles.servicePrice}>₹500</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Product Description Writing')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Email Copywriting</span>
-                    <span className={styles.servicePrice}>₹1,000</span>
+                    <div>
+                      <div className={styles.serviceName}>Email Copywriting</div>
+                      <div className={styles.servicePrice}>₹1,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Email Copywriting')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Sales Landing Page</span>
-                    <span className={styles.servicePrice}>₹7,500</span>
+                    <div>
+                      <div className={styles.serviceName}>Sales Landing Page</div>
+                      <div className={styles.servicePrice}>₹7,500</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Sales Landing Page Copywriting')} className={styles.smallCtaButton}>Select</button>
                   </div>
                 </div>
               </div>
@@ -235,24 +279,39 @@ export default function Pricing() {
                 <h3 className={styles.sectionTitle}>📖 Storytelling Scripts</h3>
                 <div className={styles.servicesGrid} style={{gridTemplateColumns: '1fr'}}>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>60-sec Story Script</span>
-                    <span className={styles.servicePrice}>₹2,000</span>
+                    <div>
+                      <div className={styles.serviceName}>60-sec Story Script</div>
+                      <div className={styles.servicePrice}>₹2,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('60-sec Story Script')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>3–5 min Story</span>
-                    <span className={styles.servicePrice}>₹4,000</span>
+                    <div>
+                      <div className={styles.serviceName}>3–5 min Story</div>
+                      <div className={styles.servicePrice}>₹4,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('3-5 min Story Script')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>10 min Documentary Script</span>
-                    <span className={styles.servicePrice}>₹8,000</span>
+                    <div>
+                      <div className={styles.serviceName}>10 min Documentary Script</div>
+                      <div className={styles.servicePrice}>₹8,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('10 min Documentary Script')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Brand Story</span>
-                    <span className={styles.servicePrice}>₹10,000</span>
+                    <div>
+                      <div className={styles.serviceName}>Brand Story</div>
+                      <div className={styles.servicePrice}>₹10,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Brand Story Script')} className={styles.smallCtaButton}>Select</button>
                   </div>
                   <div className={styles.serviceItem}>
-                    <span className={styles.serviceName}>Founder Story</span>
-                    <span className={styles.servicePrice}>₹12,000</span>
+                    <div>
+                      <div className={styles.serviceName}>Founder Story</div>
+                      <div className={styles.servicePrice}>₹12,000</div>
+                    </div>
+                    <button onClick={() => handleGetStarted('Founder Story Script')} className={styles.smallCtaButton}>Select</button>
                   </div>
                 </div>
               </div>
@@ -277,6 +336,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Posting & Hashtag Research</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Report</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Starter Social Media Management')} className={styles.ctaButton}>Get Started</button>
               </div>
               <div className={`${styles.card} ${styles.popularCard}`}>
                 <div className={styles.popularBadge}>Most Popular</div>
@@ -291,6 +351,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Calendar</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Analytics & Strategy Meeting</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Growth Social Media Management')} className={styles.ctaButton}>Get Started</button>
               </div>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -304,6 +365,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Analytics Dashboard</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Growth Report</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Premium Social Media Management')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
 
@@ -320,6 +382,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 8 Reels</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 4 Posts</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Starter Personal Branding')} className={styles.ctaButton}>Get Started</button>
               </div>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -332,6 +395,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Script Writing & Storytelling</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Thumbnails & SEO</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Professional Personal Branding')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
             
@@ -350,6 +414,7 @@ export default function Pricing() {
                 <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Publishing & Analytics</div>
                 <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Monthly Consultation</div>
               </div>
+              <button onClick={() => handleGetStarted('Complete Brand Management Package')} className={styles.ctaButton} style={{marginTop: '2rem'}}>Request A Consultation</button>
             </div>
           </div>
         )}
@@ -360,28 +425,46 @@ export default function Pricing() {
             <h3 className={styles.sectionTitle}>🤖 AI Services & Integrations</h3>
             <div className={styles.servicesGrid}>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>AI Workflow Setup</span>
-                <span className={styles.servicePrice}>₹10,000</span>
+                <div>
+                  <div className={styles.serviceName}>AI Workflow Setup</div>
+                  <div className={styles.servicePrice}>₹10,000</div>
+                </div>
+                <button onClick={() => handleGetStarted('AI Workflow Setup')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>ChatGPT Integration</span>
-                <span className={styles.servicePrice}>₹15,000</span>
+                <div>
+                  <div className={styles.serviceName}>ChatGPT Integration</div>
+                  <div className={styles.servicePrice}>₹15,000</div>
+                </div>
+                <button onClick={() => handleGetStarted('ChatGPT Integration')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>AI Content Automation</span>
-                <span className={styles.servicePrice}>₹20,000</span>
+                <div>
+                  <div className={styles.serviceName}>AI Content Automation</div>
+                  <div className={styles.servicePrice}>₹20,000</div>
+                </div>
+                <button onClick={() => handleGetStarted('AI Content Automation')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>Custom AI Assistant</span>
-                <span className={styles.servicePrice}>₹25,000+</span>
+                <div>
+                  <div className={styles.serviceName}>Custom AI Assistant</div>
+                  <div className={styles.servicePrice}>₹25,000+</div>
+                </div>
+                <button onClick={() => handleGetStarted('Custom AI Assistant')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>Prompt Engineering</span>
-                <span className={styles.servicePrice}>₹5,000</span>
+                <div>
+                  <div className={styles.serviceName}>Prompt Engineering</div>
+                  <div className={styles.servicePrice}>₹5,000</div>
+                </div>
+                <button onClick={() => handleGetStarted('Prompt Engineering')} className={styles.smallCtaButton}>Select</button>
               </div>
               <div className={styles.serviceItem}>
-                <span className={styles.serviceName}>AI Consultation (1 Hour)</span>
-                <span className={styles.servicePrice}>₹3,000</span>
+                <div>
+                  <div className={styles.serviceName}>AI Consultation (1 Hour)</div>
+                  <div className={styles.servicePrice}>₹3,000</div>
+                </div>
+                <button onClick={() => handleGetStarted('AI Consultation (1 Hour)')} className={styles.smallCtaButton}>Select</button>
               </div>
             </div>
           </div>
@@ -403,6 +486,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 8 Reels Included</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Initial SEO Setup</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Creator Launch Kit')} className={styles.ctaButton}>Get Started</button>
               </div>
 
               <div className={`${styles.card} ${styles.popularCard}`}>
@@ -417,6 +501,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 20 Social Posts & 12 Reels</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Calendar</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Business Growth Kit')} className={styles.ctaButton}>Get Started</button>
               </div>
 
               <div className={styles.card}>
@@ -431,6 +516,7 @@ export default function Pricing() {
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced Video Editing & SEO</li>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Consulting Dashboard</li>
                 </ul>
+                <button onClick={() => handleGetStarted('Complete Digital Presence Kit')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
           </div>
@@ -441,44 +527,74 @@ export default function Pricing() {
           <h3 className={styles.sectionTitle}>🔧 Additional Add-On Services</h3>
           <div className={styles.servicesGrid}>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Logo Design</span>
-              <span className={styles.servicePrice}>₹3,000</span>
+              <div>
+                <div className={styles.serviceName}>Logo Design</div>
+                <div className={styles.servicePrice}>₹3,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Logo Design')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Thumbnail Design</span>
-              <span className={styles.servicePrice}>₹800</span>
+              <div>
+                <div className={styles.serviceName}>Thumbnail Design</div>
+                <div className={styles.servicePrice}>₹800</div>
+              </div>
+              <button onClick={() => handleGetStarted('Thumbnail Design')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Business Card</span>
-              <span className={styles.servicePrice}>₹2,000</span>
+              <div>
+                <div className={styles.serviceName}>Business Card</div>
+                <div className={styles.servicePrice}>₹2,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Business Card Design')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Pitch Deck</span>
-              <span className={styles.servicePrice}>₹10,000</span>
+              <div>
+                <div className={styles.serviceName}>Pitch Deck</div>
+                <div className={styles.servicePrice}>₹10,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Pitch Deck Design')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Presentation Design</span>
-              <span className={styles.servicePrice}>₹8,000</span>
+              <div>
+                <div className={styles.serviceName}>Presentation Design</div>
+                <div className={styles.servicePrice}>₹8,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Presentation Design')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Domain Setup</span>
-              <span className={styles.servicePrice}>₹1,000</span>
+              <div>
+                <div className={styles.serviceName}>Domain Setup</div>
+                <div className={styles.servicePrice}>₹1,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Domain Setup')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Business Email Setup</span>
-              <span className={styles.servicePrice}>₹2,000</span>
+              <div>
+                <div className={styles.serviceName}>Business Email Setup</div>
+                <div className={styles.servicePrice}>₹2,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Business Email Setup')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Analytics & Console Setup</span>
-              <span className={styles.servicePrice}>₹3,000</span>
+              <div>
+                <div className={styles.serviceName}>Analytics & Console Setup</div>
+                <div className={styles.servicePrice}>₹3,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('Google Analytics & Search Console Setup')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>WhatsApp Integration</span>
-              <span className={styles.servicePrice}>₹1,000</span>
+              <div>
+                <div className={styles.serviceName}>WhatsApp Integration</div>
+                <div className={styles.servicePrice}>₹1,000</div>
+              </div>
+              <button onClick={() => handleGetStarted('WhatsApp Integration')} className={styles.smallCtaButton}>Select</button>
             </div>
             <div className={styles.serviceItem}>
-              <span className={styles.serviceName}>Payment Gateway</span>
-              <span className={styles.servicePrice}>₹7,500</span>
+              <div>
+                <div className={styles.serviceName}>Payment Gateway</div>
+                <div className={styles.servicePrice}>₹7,500</div>
+              </div>
+              <button onClick={() => handleGetStarted('Payment Gateway Integration')} className={styles.smallCtaButton}>Select</button>
             </div>
           </div>
         </div>

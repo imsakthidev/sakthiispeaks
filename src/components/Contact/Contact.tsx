@@ -50,13 +50,7 @@ export default function Contact() {
               Whether you have a question or just want to say hi, I'll try my best to get back to you!
             </p>
 
-            <div className={styles.contactDetails}>
-              <div className={styles.contactItem}>
-                <div className={styles.iconWrapper}>
-                  <Mail size={20} />
-                </div>
-                <span>imsakthidev@gmail.com</span>
-              </div>
+              <div className={styles.contactDetails}>
               <div className={styles.contactItem}>
                 <div className={styles.iconWrapper}>
                   <Mail size={20} />
