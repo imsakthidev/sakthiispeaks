@@ -19,6 +19,9 @@ export const viewport = {
 export const metadata: Metadata = {
   title: "Sakthi | Sakthi Speaks",
   description: "Portfolio of Sakthivelpandian P, a Software Engineer, AI Developer, Content Creator, and Central Armed Police Force personnel.",
+  icons: {
+    icon: "/profile.PNG",
+  },
 };
 
 export default function RootLayout({
