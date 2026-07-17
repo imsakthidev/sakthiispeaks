@@ -8,6 +8,7 @@ const projectsData = [
     title: 'Electricals',
     description: 'A dedicated project for an electricals business, featuring a modern UI and responsive design.',
     tech: ['React', 'Next.js', 'Tailwind CSS'],
+    github: 'https://github.com/imsakthidev/Electricals',
     demo: 'https://imsakthidev.github.io/Electricals/'
   },
   {
@@ -15,6 +16,7 @@ const projectsData = [
     title: 'Sakthi\'s Bakery',
     description: 'A delightful web application for a bakery, showcasing products and services with an elegant interface.',
     tech: ['React', 'CSS', 'JavaScript'],
+    github: 'https://github.com/imsakthidev/Sakthi-s-Bakery',
     demo: 'https://imsakthidev.github.io/Sakthi-s-Bakery/'
   },
   {
@@ -22,6 +24,7 @@ const projectsData = [
     title: 'Digital Invitation',
     description: 'An interactive and beautifully designed digital invitation platform.',
     tech: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/imsakthidev/Invitation',
     demo: 'https://imsakthidev.github.io/Invitation/'
   }
 ];

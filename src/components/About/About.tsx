@@ -14,11 +14,11 @@ export default function About() {
           <h2 className={styles.title}>About Me</h2>
           <div className={styles.line}></div>
         </div>
-
+        
         <div className={styles.content}>
           <div className={styles.textSection}>
             <p className={styles.text}>
-              I'm Sakthivelpandian P, professionally known as Sakthi. With a background in Computer Science Engineering and experience in national service through the Central Armed Police Forces , I combine discipline with technical problem-solving.
+              I'm Sakthivelpandian P, professionally known as Sakthi. With a background in Computer Science Engineering and experience in national service through the Central Armed Police Forces, I combine discipline with technical problem-solving.
             </p>
             <p className={styles.text}>
               I build AI-powered software, desktop applications, and modern web solutions while creating educational content that reaches a wide audience under the brand "Sakthi Speaks". I'm passionate about artificial intelligence, software engineering, and building products that solve real-world problems.
@@ -38,16 +38,16 @@ export default function About() {
               </div>
             </div>
           </div>
-
+          
           <div className={styles.imageSection}>
             <div className={styles.imageWrapper}>
               <div className={styles.brandCard}>
                 <div className={styles.brandGlow}></div>
-                <div className={`${styles.brandText} ${montserrat.className}`}>SAKTHI<br />SPEAKS</div>
+                <div className={`${styles.brandText} ${montserrat.className}`}>SAKTHI<br/>SPEAKS</div>
                 <div className={`${styles.brandSubtitle} ${caveat.className}`}>Creator</div>
               </div>
               <div className={styles.imageBackdrop}></div>
-
+              
               <div className={`${styles.floatingIcon} ${styles.icon1}`} title="Coding">
                 <Code size={24} />
               </div>
