@@ -4,11 +4,18 @@ import styles from './Projects.module.css';
 
 const projectsData = [
   {
+    id: 1,
+    title: 'Sakthi Speaks Digital',
+    description: 'My official digital agency and consulting portfolio built with Next.js and Vercel.',
+    tech: ['React', 'Next.js', 'Vercel'],
+    demo: 'https://sakthiispeaks.vercel.app'
+  },
+  {
     id: 2,
     title: 'Electricals',
     description: 'A dedicated project for an electricals business, featuring a modern UI and responsive design.',
     tech: ['React', 'Next.js', 'Tailwind CSS'],
-    demo: 'https://imsakthidev.github.io/Electricals/'
+    demo: 'https://sakthivelelectricals.vercel.app/'
   },
   {
     id: 3,
@@ -23,6 +30,20 @@ const projectsData = [
     description: 'An interactive and beautifully designed digital invitation platform.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     demo: 'https://imsakthidev.github.io/Invitation/'
+  },
+  {
+    id: 5,
+    title: 'Sakthi Speaks YouTube',
+    description: 'My official YouTube channel sharing educational content, digital growth strategies, and tech tutorials.',
+    tech: ['Content Creation', 'Video Editing'],
+    demo: 'https://www.youtube.com/@sakthiispeaks'
+  },
+  {
+    id: 6,
+    title: 'Sakthi Speaks Instagram',
+    description: 'Daily short-form content, personal branding tips, and a community of hundreds of thousands of followers.',
+    tech: ['Social Media', 'Growth Strategy'],
+    demo: 'https://www.instagram.com/sakthiispeaks/'
   }
 ];
 
