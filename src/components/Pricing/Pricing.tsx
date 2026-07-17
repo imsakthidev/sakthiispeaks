@@ -140,7 +140,7 @@ export default function Pricing() {
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.planName}>Basic Shorts</h3>
-                  <div className={styles.planPrice}>₹1000<span>/video</span></div>
+                  <div className={styles.planPrice}>₹1,000<span>/Video</span></div>
                 </div>
                 <ul className={styles.featuresList}>
                   <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Cuts & Trimming</li>
