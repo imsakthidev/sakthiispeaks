@@ -26,7 +26,6 @@ export default function Navbar() {
         <div className={styles.navLinks}>
           <a href="#about" className={styles.navLink}>About</a>
           <a href="#projects" className={styles.navLink}>Projects</a>
-          <a href="#skills" className={styles.navLink}>Skills</a>
           <a href="#pricing" className={styles.navLink}>Pricing</a>
           <a href="#contact" className={styles.navLink}>Contact</a>
         </div>
@@ -46,7 +45,6 @@ export default function Navbar() {
         <div className={`${styles.mobileNav} glass`}>
           <a href="#about" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>About</a>
           <a href="#projects" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Projects</a>
-          <a href="#skills" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Skills</a>
           <a href="#pricing" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Pricing</a>
           <a href="#contact" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Contact</a>
         </div>
