@@ -34,10 +34,23 @@
 }
 
 /* Tabs */
+.tabsScrollWrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  /* Hide scrollbar for cleaner look */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.tabsScrollWrapper::-webkit-scrollbar {
+  display: none;
+}
+
 .tabsContainer {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
+  min-width: max-content;
+  margin: 0 auto;
 }
 
 .tabsWrapper {
@@ -53,15 +66,16 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 8px;
   border: none;
   background: transparent;
   color: #a1a1aa;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -82,7 +96,7 @@
 .tabContent {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
   animation: fadeIn 0.5s ease;
 }
 
@@ -135,6 +149,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .cardHeader {
@@ -202,6 +217,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  margin-top: auto;
 }
 
 .ctaButton:hover {
@@ -218,7 +234,7 @@
   background: #fff;
 }
 
-/* Ultimate Package */
+/* Ultimate Package (if used) */
 .ultimatePackage {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(56, 189, 248, 0.05) 100%);
   border: 1px solid rgba(56, 189, 248, 0.2);
@@ -267,14 +283,6 @@
   font-weight: 500;
 }
 
-.ultimateDesc {
-  color: #a1a1aa;
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
 .ultimateFeatures {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -293,7 +301,7 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Services Grid */
+/* Services Grid & Layouts */
 .sectionTitle {
   font-size: 1.8rem;
   font-weight: 700;
@@ -302,17 +310,23 @@
   text-align: center;
 }
 
+.twoColumnLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
 .servicesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .serviceItem {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
-  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -332,61 +346,6 @@
 .servicePrice {
   color: var(--primary-color);
   font-weight: 700;
-}
-
-/* Maintenance Cards */
-.maintenanceGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.mCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 16px;
-  text-align: center;
-}
-
-.mCardTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.mCardPrice {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 1.5rem;
-}
-
-.mCardPrice span {
-  font-size: 1rem;
-  color: #a1a1aa;
-}
-
-.mCardList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-}
-
-.mCardList li {
-  color: #a1a1aa;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mCardList li::before {
-  content: "•";
-  color: var(--primary-color);
 }
 
 /* Terms Section */
@@ -429,6 +388,12 @@
   margin-top: 2px;
 }
 
+@media (max-width: 900px) {
+  .twoColumnLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
@@ -438,13 +403,8 @@
     font-size: 2rem;
   }
 
-  .tabsWrapper {
-    width: 100%;
-    flex-direction: column;
-  }
-  
-  .tab {
-    justify-content: center;
+  .tabsScrollWrapper {
+    justify-content: flex-start;
   }
   
   .ultimatePackage {
@@ -457,11 +417,5 @@
   
   .ultimatePrice {
     font-size: 2.2rem;
-  }
-  
-  .serviceItem {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
   }
 }

@@ -26,15 +26,15 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Digital Growth Consultant & Content Strategist
+              Web Dev • Content • AI Solutions • Personal Branding
             </motion.div>
             
             <h1 className={styles.title}>
-              Hi, I'm <span className="text-gradient">Sakthi</span>.
+              SAKTHI SPEAKS <span className="text-gradient">DIGITAL</span>
             </h1>
             
             <p className={styles.subtitle}>
-              I help businesses and personal brands build a powerful online presence. From premium web development to viral content strategies, I deliver complete digital growth solutions.
+              Helping Businesses, Startups & Creators Build Their Digital Presence. From premium web development to viral content strategies, I deliver complete digital growth solutions.
             </p>
             
             <div className={styles.actions}>
