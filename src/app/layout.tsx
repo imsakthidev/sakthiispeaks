@@ -18,13 +18,31 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Sakthi | Sakthi Speaks - Digital Experiences & Web Development",
-  description: "Portfolio of Sakthi, Founder of Sakthi Speaks. Specializing in Web Development, Content Creation, Video Editing, AI Solutions, and Personal Branding.",
-  keywords: ["Sakthi Speaks", "Web Developer", "Software Engineer", "Content Creator", "Video Editor", "AI Developer", "Next.js", "React", "Personal Branding", "Digital Agency"],
+  title: "Sakthi Speaks | Web Developer, AI Solutions, Video Editor & Digital Creator",
+  description: "Sakthi Speaks provides professional website development, AI solutions, video editing, storytelling, content writing, branding and social media management for businesses, startups and creators.",
+  keywords: [
+    "Sakthi Speaks", "Web Developer", "Full Stack Developer", "Frontend Developer", 
+    "Portfolio Website Developer", "Business Website Developer", "Website Designer", 
+    "Freelance Web Developer", "Website Development Services", "Custom Website Development", 
+    "Responsive Website Design", "Landing Page Development", "React Developer", 
+    "Next.js Developer", "JavaScript Developer", "TypeScript Developer", "Vite Developer",
+    "Content Creator", "Content Writing Services", "Professional Content Writer", 
+    "Storytelling Expert", "Script Writer", "Video Script Writing", "Creative Storytelling", 
+    "Social Media Content Creator", "AI Content Creator", "Brand Storytelling",
+    "Video Editor", "Professional Video Editing", "Shorts Video Editing", 
+    "YouTube Video Editing", "Instagram Reel Editing", "Corporate Video Editing", 
+    "Motion Graphics", "Color Grading", "Video Production", "Content Editing",
+    "Social Media Manager", "Instagram Growth", "YouTube Growth", "Personal Branding", 
+    "Brand Management", "Social Media Marketing", "Digital Branding", "Content Marketing", 
+    "Social Media Strategy", "AI Solutions", "AI Automation", "ChatGPT Expert", 
+    "AI Workflow", "Artificial Intelligence Services", "AI Consulting", "Business Automation",
+    "Web Developer India", "Web Developer Tamil Nadu", "Web Developer Theni", 
+    "Freelance Web Developer India", "Digital Marketing India"
+  ],
   authors: [{ name: "Sakthi" }],
   openGraph: {
-    title: "Sakthi Speaks | Digital Experiences",
-    description: "Building Digital Experiences That Help Brands Grow. Explore my portfolio of Web Development, Video Editing, and AI Solutions.",
+    title: "Sakthi Speaks | Building Digital Experiences That Drive Growth",
+    description: "Web Developer, AI Solutions Expert & Digital Content Strategist helping businesses, startups and creators build powerful websites, engaging content and strong digital brands.",
     url: "https://sakthiispeaks.vercel.app",
     siteName: "Sakthi Speaks",
     images: [
@@ -40,8 +58,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sakthi Speaks",
-    description: "Building Digital Experiences That Help Brands Grow.",
+    title: "Sakthi Speaks | Web Developer, AI Solutions & Digital Creator",
+    description: "Professional Website Development, Video Editing, AI Solutions, Storytelling, Content Writing & Social Media Management.",
     images: ["/profile.PNG"],
   },
   icons: {
