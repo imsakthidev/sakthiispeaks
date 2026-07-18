@@ -68,7 +68,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
             <img 
-              src="/hero-poster.png" 
+              src="/hero-poster.PNG" 
               alt="Sakthi Speaks Digital" 
               className={styles.profileImage} 
             />
