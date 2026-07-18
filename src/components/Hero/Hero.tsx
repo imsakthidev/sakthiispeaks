@@ -68,8 +68,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
             <img 
-              src="/profile.PNG" 
-              alt="Sakthi" 
+              src="/hero-poster.png" 
+              alt="Sakthi Speaks Digital" 
               className={styles.profileImage} 
             />
           </motion.div>
