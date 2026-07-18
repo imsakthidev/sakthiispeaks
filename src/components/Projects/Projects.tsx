@@ -26,10 +26,10 @@ const projectsData = [
   },
   {
     id: 4,
-    title: 'Digital Invitation',
-    description: 'An interactive and beautifully designed digital invitation platform.',
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    demo: 'https://imsakthidev.github.io/Invitation/'
+    title: 'Wedding Website',
+    description: 'An interactive and beautifully designed digital wedding invitation platform.',
+    tech: ['React', 'Next.js', 'Vercel'],
+    demo: 'https://sakthiwedsdivya.vercel.app/'
   },
   {
     id: 5,
