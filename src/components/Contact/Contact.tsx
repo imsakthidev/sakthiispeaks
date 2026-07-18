@@ -110,7 +110,7 @@ export default function Contact() {
 
         <div className={styles.visitorCount}>
           <p>Page Views</p>
-          <img src="https://profile-counter.glitch.me/sakthiispeaks/count.svg" alt="Visitor Count" />
+          <img src="https://komarev.com/ghpvc/?username=sakthiispeaks-portfolio&color=blueviolet&style=flat-square&label=VISITORS" alt="Visitor Count" />
         </div>
       </div>
     </section>
