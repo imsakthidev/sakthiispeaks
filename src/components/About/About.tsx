@@ -17,26 +17,38 @@ export default function About() {
         
         <div className={styles.content}>
           <div className={styles.textSection}>
-            <p className={styles.text}>
-              I'm Sakthivelpandian P, a Digital Growth Consultant and Content Strategist. With a foundation in Computer Science Engineering and experience in national service through the Central Armed Police Forces, I combine analytical discipline with creative storytelling.
+            <p className={styles.subtitle}>
+              Building Digital Experiences That Help Brands Grow.
             </p>
             <p className={styles.text}>
-              I help businesses and personal brands scale their online presence by offering a unique combination of premium web development and viral content strategies. Under my own brand, "Sakthi Speaks", my educational content reaches hundreds of thousands of viewers. My background teaching Computer Science fueled my deep passion for sharing knowledge, and I now use those skills to architect digital growth for my clients.
+              I'm Sakthi, the founder of Sakthi Speaks. I help businesses, startups, creators, and professionals establish a powerful online presence through modern websites, engaging content, and strategic digital solutions.
             </p>
-            <div className={styles.stats}>
-              <div className={styles.statBox}>
-                <span className={styles.statNumber}>750K+</span>
-                <span className={styles.statLabel}>Instagram Views</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statNumber}>550K+</span>
-                <span className={styles.statLabel}>YouTube Views</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statNumber}>3</span>
-                <span className={styles.statLabel}>Languages Spoken</span>
-              </div>
-            </div>
+            <p className={styles.text}>
+              My expertise combines web development, content creation, video editing, storytelling, personal branding, and AI-powered workflows to create digital experiences that not only look professional but also drive meaningful results.
+            </p>
+            <p className={styles.text}>
+              Whether you're launching a new business, building your personal brand, or scaling your online presence, I deliver solutions tailored to your goals—from design and development to content strategy and ongoing digital growth.
+            </p>
+            
+            <h3 className={styles.sectionHeading}>What I Do</h3>
+            <ul className={styles.servicesList}>
+              <li>🌐 Professional Website Development</li>
+              <li>🎬 Short & Long Form Video Editing</li>
+              <li>✍️ Content Writing & Copywriting</li>
+              <li>📖 Storytelling & Script Writing</li>
+              <li>📱 Social Media Management</li>
+              <li>🚀 Personal Branding</li>
+              <li>🤖 AI-Powered Digital Solutions</li>
+              <li>💼 SaaS & Business Solutions</li>
+            </ul>
+
+            <h3 className={styles.sectionHeading}>My Approach</h3>
+            <p className={styles.text}>
+              I believe every brand has a story worth telling. My goal is to combine creativity, technology, and strategy to build digital products and content that leave a lasting impression and help businesses grow with confidence.
+            </p>
+            <p className={styles.text}>
+              Let's turn your ideas into impactful digital experiences.
+            </p>
           </div>
           
           <div className={styles.imageSection}>
