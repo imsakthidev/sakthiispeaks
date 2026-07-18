@@ -110,7 +110,7 @@ export default function Contact() {
 
         <div className={styles.visitorCount}>
           <p>Page Views</p>
-          <img src="https://komarev.com/ghpvc/?username=sakthiispeaks-portfolio&color=blueviolet&style=flat-square&label=VISITORS" alt="Visitor Count" />
+          <img src="https://api.visitorbadge.io/api/visitors?path=sakthiispeaks.vercel.app&label=VISITORS&countColor=%233b82f6" alt="Visitor Count" />
         </div>
       </div>
     </section>
