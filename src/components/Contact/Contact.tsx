@@ -108,9 +108,8 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className={styles.visitorCount}>
-          <p>Page Views</p>
-          <img src="https://api.visitorbadge.io/api/visitors?path=sakthiispeaks.vercel.app&label=VISITORS&countColor=%233b82f6" alt="Visitor Count" />
+        <div className={styles.footerText}>
+          <p>&copy; 2026 Sakthi Speaks. All Rights Reserved.</p>
         </div>
       </div>
     </section>
