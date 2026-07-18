@@ -107,6 +107,11 @@ export default function Contact() {
             </form>
           </div>
         </div>
+
+        <div className={styles.visitorCount}>
+          <p>Page Views</p>
+          <img src="https://profile-counter.glitch.me/sakthiispeaks/count.svg" alt="Visitor Count" />
+        </div>
       </div>
     </section>
   );
