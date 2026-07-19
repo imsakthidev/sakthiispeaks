@@ -21,7 +21,7 @@ export default function About() {
               Building Digital Experiences That Help Brands Grow.
             </p>
             <p className={styles.text}>
-              I'm Sakthi, the founder of Sakthi Speaks. I help businesses, startups, creators, and professionals establish a powerful online presence through modern websites, engaging content, and strategic digital solutions.
+              I'm Sakthi, the founder of Sakthi Speaks Digital. I help businesses, startups, creators, and professionals establish a powerful online presence through modern websites, engaging content, and strategic digital solutions.
             </p>
             <p className={styles.text}>
               My expertise combines web development, content creation, video editing, storytelling, personal branding, and AI-powered workflows to create digital experiences that not only look professional but also drive meaningful results.
@@ -56,7 +56,7 @@ export default function About() {
               <div className={styles.brandCard}>
                 <div className={styles.brandGlow}></div>
                 <div className={`${styles.brandText} ${montserrat.className}`}>SAKTHI<br/>SPEAKS</div>
-                <div className={`${styles.brandSubtitle} ${caveat.className}`}>Creator</div>
+                <div className={`${styles.brandSubtitle} ${caveat.className}`}>Digital</div>
               </div>
               <div className={styles.imageBackdrop}></div>
               

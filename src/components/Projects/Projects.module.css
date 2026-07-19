@@ -114,3 +114,43 @@
   color: var(--text-secondary);
   border: 1px solid var(--glass-border);
 }
+
+.personalAccounts {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.socialAccountsGrid {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.socialAccountCard {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+  text-decoration: none;
+  min-width: 250px;
+}
+
+.socialAccountCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  color: var(--accent);
+}
+
+.socialIcon {
+  color: inherit;
+}

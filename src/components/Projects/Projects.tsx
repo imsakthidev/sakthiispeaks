@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Youtube, Instagram } from 'lucide-react';
 import styles from './Projects.module.css';
 
 const projectsData = [
@@ -31,19 +31,6 @@ const projectsData = [
     tech: ['React', 'Next.js', 'Vercel'],
     demo: 'https://sakthiwedsdivya.vercel.app/'
   },
-  {
-    id: 5,
-    title: 'Sakthi Speaks YouTube',
-    description: 'My official YouTube channel sharing educational content, digital growth strategies, and tech tutorials.',
-    tech: ['Content Creation', 'Video Editing'],
-    demo: 'https://www.youtube.com/@sakthiispeaks'
-  },
-  {
-    id: 6,
-    title: 'Sakthi Speaks Instagram',
-    description: 'Daily short-form content, personal branding tips, and a community of hundreds of thousands of followers.',
-    tech: ['Social Media', 'Growth Strategy'],
-    demo: 'https://www.instagram.com/sakthiispeaks/'
   }
 ];
 
@@ -80,6 +67,24 @@ export default function Projects() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className={styles.personalAccounts}>
+          <div className={styles.header}>
+            <div className={styles.line}></div>
+            <h2 className={styles.title}>Personal Accounts</h2>
+            <div className={styles.line}></div>
+          </div>
+          <div className={styles.socialAccountsGrid}>
+             <a href="https://www.youtube.com/@sakthiispeaks" target="_blank" rel="noopener noreferrer" className={styles.socialAccountCard}>
+                <Youtube size={48} className={styles.socialIcon} />
+                <span>@sakthiispeaks</span>
+             </a>
+             <a href="https://www.instagram.com/sakthiispeaks" target="_blank" rel="noopener noreferrer" className={styles.socialAccountCard}>
+                <Instagram size={48} className={styles.socialIcon} />
+                <span>@sakthiispeaks</span>
+             </a>
+          </div>
         </div>
       </div>
     </section>
