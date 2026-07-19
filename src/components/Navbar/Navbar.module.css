@@ -32,6 +32,7 @@
 .navLinks {
   display: none;
   gap: 32px;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
