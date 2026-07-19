@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
+import ChatAssistant from "@/components/ChatAssistant/ChatAssistant";
 import "./globals.css";
 
 const inter = Inter({
@@ -77,7 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
       <head>
         <Script 
           src="https://www.googletagmanager.com/gtag/js?id=G-2ESGNN9035" 
@@ -93,8 +96,18 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        {children}
-        <Analytics />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LanguageProvider>
+            {children}
+            <ChatAssistant />
+            <Analytics />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

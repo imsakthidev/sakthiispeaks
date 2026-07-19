@@ -107,3 +107,22 @@
 .mobileNavLink:last-child {
   border-bottom: none;
 }
+
+.mobileOnly {
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .mobileOnly {
+    display: none;
+  }
+}
+
+.mobileActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--glass-border);
+}

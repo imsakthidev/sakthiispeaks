@@ -1,10 +1,13 @@
 "use client";
 import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Contact.module.css';
 
 export default function Contact() {
   const [status, setStatus] = React.useState('');
+  const { t, language } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,13 +25,13 @@ export default function Contact() {
       });
       
       if (response.ok) {
-        setStatus('Message sent successfully!');
+        setStatus(t('contact.success'));
         form.reset();
       } else {
-        setStatus('Failed to send message.');
+        setStatus(t('contact.error'));
       }
     } catch (error) {
-      setStatus('Something went wrong. Please try again.');
+      setStatus(t('contact.error'));
     }
     
     setTimeout(() => setStatus(''), 5000);
@@ -38,16 +41,22 @@ export default function Contact() {
     <section id="contact" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Get In Touch</h2>
+          <h2 className={styles.title}>{t('contact.title')}</h2>
           <div className={styles.line}></div>
         </div>
 
         <div className={styles.content}>
-          <div className={styles.infoSection}>
-            <h3 className={styles.subtitle}>Let's talk about your next project.</h3>
+          <motion.div 
+            className={styles.infoSection}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className={styles.subtitle}>{t('contact.subtitle')}</h3>
             <p className={styles.text}>
-              I'm currently available for freelance work and full-time opportunities.
-              Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              {language === 'ta' ? 'நான் தற்போது ஃப்ரீலான்ஸ் மற்றும் முழுநேர வேலை வாய்ப்புகளுக்கு தயாராக உள்ளேன். உங்களுக்கு ஏதேனும் கேள்விகள் இருந்தால், தயங்காமல் தொடர்பு கொள்ளவும்!' :
+               "I'm currently available for freelance work and full-time opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!"}
             </p>
 
               <div className={styles.contactDetails}>
@@ -70,16 +79,22 @@ export default function Contact() {
                 <span>Tamilnadu, India</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className={styles.formSection}>
+          <motion.div 
+            className={styles.formSection}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.inputGroup}>
-                <label htmlFor="name" className={styles.label}>Name</label>
+                <label htmlFor="name" className={styles.label}>{t('contact.name')}</label>
                 <input type="text" id="name" name="name" className={styles.input} placeholder="John Doe" required />
               </div>
               <div className={styles.inputGroup}>
-                <label htmlFor="email" className={styles.label}>Email</label>
+                <label htmlFor="email" className={styles.label}>{t('contact.email')}</label>
                 <input type="email" id="email" name="email" className={styles.input} placeholder="john@example.com" required />
               </div>
               <div className={styles.inputGroup}>
@@ -87,7 +102,7 @@ export default function Contact() {
                 <input type="tel" id="mobile" name="mobile" className={styles.input} placeholder="+91 98765 43210" required />
               </div>
               <div className={styles.inputGroup}>
-                <label htmlFor="message" className={styles.label}>Message</label>
+                <label htmlFor="message" className={styles.label}>{t('contact.message')}</label>
                 <textarea id="message" name="message" className={styles.textarea} placeholder="How can I help you?" rows={5} required></textarea>
               </div>
               
@@ -95,17 +110,17 @@ export default function Contact() {
               <input type="hidden" name="_subject" value="New Portfolio Inquiry!" />
               <input type="hidden" name="_captcha" value="false" />
               
-              <button type="submit" className={styles.submitButton} disabled={status === 'Sending...'}>
-                {status === 'Sending...' ? 'Sending...' : 'Send Message'}
+              <button type="submit" className={styles.submitButton} disabled={status === t('contact.sending')}>
+                {status === t('contact.sending') ? t('contact.sending') : t('contact.send')}
               </button>
               
-              {status && status !== 'Sending...' && (
-                <p className={styles.statusMessage} style={{ marginTop: '15px', color: status.includes('successfully') ? '#10b981' : '#ef4444', fontSize: '14px', textAlign: 'center' }}>
+              {status && status !== t('contact.sending') && (
+                <p className={styles.statusMessage} style={{ marginTop: '15px', color: status === t('contact.success') ? '#10b981' : '#ef4444', fontSize: '14px', textAlign: 'center' }}>
                   {status}
                 </p>
               )}
             </form>
-          </div>
+          </motion.div>
         </div>
 
         <div className={styles.footerText}>

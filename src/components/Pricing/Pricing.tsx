@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from 'react';
 import { Check, Info, Layout, Video, PenTool, Share2, Bot, Rocket } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Pricing.module.css';
 
 export default function Pricing() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<'web' | 'video' | 'content' | 'social' | 'ai' | 'growth'>('web');
 
   const handleGetStarted = (planName: string) => {
@@ -17,45 +20,59 @@ export default function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className={`container ${styles.container}`}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>Digital Services & Pricing</h2>
+        <motion.div 
+          className={styles.header}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className={styles.title}>{t('pricing.title')}</h2>
           <div className={styles.line}></div>
           <p className={styles.subtitle}>
-            Transparent, competitive pricing for premium digital growth solutions. 
-            Select a service category below to view packages.
+            {t('pricing.subtitle')}
           </p>
-        </div>
+        </motion.div>
 
         {/* 6-Tab Navigation */}
         <div className={styles.tabsScrollWrapper}>
           <div className={styles.tabsContainer}>
             <div className={styles.tabsWrapper}>
               <button className={`${styles.tab} ${activeTab === 'web' ? styles.activeTab : ''}`} onClick={() => setActiveTab('web')}>
-                <Layout size={18} /> Web Dev
+                <Layout size={18} /> {t('pricing.webDev')}
               </button>
               <button className={`${styles.tab} ${activeTab === 'video' ? styles.activeTab : ''}`} onClick={() => setActiveTab('video')}>
-                <Video size={18} /> Video Editing
+                <Video size={18} /> {t('pricing.videoEdit')}
               </button>
               <button className={`${styles.tab} ${activeTab === 'content' ? styles.activeTab : ''}`} onClick={() => setActiveTab('content')}>
                 <PenTool size={18} /> Content & Story
               </button>
               <button className={`${styles.tab} ${activeTab === 'social' ? styles.activeTab : ''}`} onClick={() => setActiveTab('social')}>
-                <Share2 size={18} /> Social & Brand
+                <Share2 size={18} /> {t('pricing.socialMedia')}
               </button>
               <button className={`${styles.tab} ${activeTab === 'ai' ? styles.activeTab : ''}`} onClick={() => setActiveTab('ai')}>
                 <Bot size={18} /> AI Services
               </button>
               <button className={`${styles.tab} ${activeTab === 'growth' ? styles.activeTab : ''}`} onClick={() => setActiveTab('growth')}>
-                <Rocket size={18} /> Growth Kits
+                <Rocket size={18} /> {t('pricing.growthKits')}
               </button>
             </div>
           </div>
         </div>
 
-        {/* 1. WEB DEVELOPMENT TAB */}
-        {activeTab === 'web' && (
-          <div className={styles.tabContent}>
-            <div className={styles.cardsGrid}>
+        {/* Tab Content with AnimatePresence */}
+        <AnimatePresence mode="wait">
+          {/* 1. WEB DEVELOPMENT TAB */}
+          {activeTab === 'web' && (
+            <motion.div 
+              key="web"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className={styles.cardsGrid}>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.planName}>🚀 Starter Website</h3>
@@ -128,14 +145,21 @@ export default function Pricing() {
                 <button onClick={() => handleGetStarted('Enterprise Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* 2. VIDEO EDITING TAB */}
-        {activeTab === 'video' && (
-          <div className={styles.tabContent}>
-            
-            <h3 className={styles.sectionTitle}>📱 Shorts Editing</h3>
+          {/* 2. VIDEO EDITING TAB */}
+          {activeTab === 'video' && (
+            <motion.div 
+              key="video"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              
+              <h3 className={styles.sectionTitle}>📱 Shorts Editing</h3>
             <div className={styles.cardsGrid}>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -212,14 +236,20 @@ export default function Pricing() {
                 <button onClick={() => handleGetStarted('Podcast Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
             </div>
+            </motion.div>
+          )}
 
-          </div>
-        )}
-
-        {/* 3. CONTENT & STORYTELLING TAB */}
-        {activeTab === 'content' && (
-          <div className={styles.tabContent}>
-            <div className={styles.twoColumnLayout}>
+          {/* 3. CONTENT & STORYTELLING TAB */}
+          {activeTab === 'content' && (
+            <motion.div 
+              key="content"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className={styles.twoColumnLayout}>
               <div>
                 <h3 className={styles.sectionTitle}>✍️ Content Writing</h3>
                 <div className={styles.servicesGrid} style={{gridTemplateColumns: '1fr'}}>
@@ -316,14 +346,21 @@ export default function Pricing() {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* 4. SOCIAL MEDIA & BRANDING TAB */}
-        {activeTab === 'social' && (
-          <div className={styles.tabContent}>
-            
-            <h3 className={styles.sectionTitle}>📱 Social Media Management</h3>
+          {/* 4. SOCIAL MEDIA & BRANDING TAB */}
+          {activeTab === 'social' && (
+            <motion.div 
+              key="social"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              
+              <h3 className={styles.sectionTitle}>📱 Social Media Management</h3>
             <div className={styles.cardsGrid}>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -416,13 +453,20 @@ export default function Pricing() {
               </div>
               <button onClick={() => handleGetStarted('Complete Brand Management Package')} className={styles.ctaButton} style={{marginTop: '2rem'}}>Request A Consultation</button>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* 5. AI SERVICES TAB */}
-        {activeTab === 'ai' && (
-          <div className={styles.tabContent}>
-            <h3 className={styles.sectionTitle}>🤖 AI Services & Integrations</h3>
+          {/* 5. AI SERVICES TAB */}
+          {activeTab === 'ai' && (
+            <motion.div 
+              key="ai"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h3 className={styles.sectionTitle}>🤖 AI Services & Integrations</h3>
             <div className={styles.servicesGrid}>
               <div className={styles.serviceItem}>
                 <div>
@@ -467,13 +511,20 @@ export default function Pricing() {
                 <button onClick={() => handleGetStarted('AI Consultation (1 Hour)')} className={styles.smallCtaButton}>Select</button>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* 6. GROWTH PACKAGES TAB */}
-        {activeTab === 'growth' && (
-          <div className={styles.tabContent}>
-            <h3 className={styles.sectionTitle}>🚀 Digital Growth Kits (Web + Content)</h3>
+          {/* 6. GROWTH PACKAGES TAB */}
+          {activeTab === 'growth' && (
+            <motion.div 
+              key="growth"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h3 className={styles.sectionTitle}>🚀 Digital Growth Kits (Web + Content)</h3>
             <div className={styles.cardsGrid}>
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -519,8 +570,9 @@ export default function Pricing() {
                 <button onClick={() => handleGetStarted('Complete Digital Presence Kit')} className={styles.ctaButton}>Get Started</button>
               </div>
             </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Global Footer: Additional Services & Payment Policy */}
         <div style={{ marginTop: '2rem' }}>

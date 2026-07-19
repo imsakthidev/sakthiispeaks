@@ -2,9 +2,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Mail } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './Hero.module.css';
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className={styles.hero}>
       <div className={styles.backgroundEffects}>
@@ -26,20 +29,20 @@ export default function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Web Dev • Content • AI Solutions • Personal Branding
+              {t('hero.badge')}
             </motion.div>
             
             <h1 className={styles.title}>
-              SAKTHI SPEAKS <span className="text-gradient">DIGITAL</span>
+              {t('hero.title1')} <span className="text-gradient">{t('hero.title2')}</span>
             </h1>
             
             <p className={styles.subtitle}>
-              Helping Businesses, Startups & Creators Build Their Digital Presence. From premium web development to viral content strategies, I deliver complete digital growth solutions.
+              {t('hero.subtitle')}
             </p>
             
             <div className={styles.actions}>
               <a href="#projects" className={styles.primaryButton}>
-                View My Work <ArrowRight size={18} />
+                {t('hero.cta')} <ArrowRight size={18} />
               </a>
               <div className={styles.socialLinks}>
                 <a href="https://github.com/imsakthidev" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className={styles.socialLink}>

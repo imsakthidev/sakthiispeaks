@@ -1,6 +1,6 @@
 .page {
   --background: #fafafa;
-  --foreground: #fff;
+  --foreground: var(--text-primary);
 
   --text-primary: #000;
   --text-secondary: #666;

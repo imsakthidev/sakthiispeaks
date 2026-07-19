@@ -1,4 +1,27 @@
 :root {
+  /* Light Mode Colors (System Default) */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #6d28d9;
+  --accent-glow: rgba(109, 40, 217, 0.2);
+  --primary-color: #3b82f6;
+  
+  /* Glassmorphism & Cards */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --card-bg: rgba(0, 0, 0, 0.02);
+  --card-hover: rgba(0, 0, 0, 0.04);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --primary-foreground: #fff;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6d28d9 0%, #3b82f6 100%);
+  --gradient-text: linear-gradient(to right, #0f172a, #475569);
+}
+
+.dark {
   /* Premium Dark Mode Colors */
   --bg-primary: #050505;
   --bg-secondary: #111111;
@@ -8,12 +31,15 @@
   --accent-glow: rgba(109, 40, 217, 0.5);
   --primary-color: #3b82f6;
   
-  /* Glassmorphism */
+  /* Glassmorphism & Cards */
   --glass-bg: rgba(20, 20, 20, 0.4);
   --glass-border: rgba(255, 255, 255, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.02);
+  --card-hover: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --primary-foreground: #000;
   
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #6d28d9 0%, #3b82f6 100%);
   --gradient-text: linear-gradient(to right, #fff, #a0a0a0);
 }
 

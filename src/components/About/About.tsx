@@ -1,57 +1,74 @@
+"use client";
 import React from 'react';
 import { Code, Mic, Video, BookOpen, TrendingUp, Plane, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Caveat, Montserrat } from 'next/font/google';
+import { useLanguage } from '@/context/LanguageContext';
 import styles from './About.module.css';
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['900'] });
 
 export default function About() {
+  const { t } = useLanguage();
+
   return (
     <section id="about" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>About Me</h2>
+          <h2 className={styles.title}>{t('about.title')}</h2>
           <div className={styles.line}></div>
         </div>
         
         <div className={styles.content}>
-          <div className={styles.textSection}>
+          <motion.div 
+            className={styles.textSection}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <p className={styles.subtitle}>
-              Building Digital Experiences That Help Brands Grow.
+              {t('about.subtitle')}
             </p>
             <p className={styles.text}>
-              I'm Sakthi, the founder of Sakthi Speaks Digital. I help businesses, startups, creators, and professionals establish a powerful online presence through modern websites, engaging content, and strategic digital solutions.
+              {t('about.p1')}
             </p>
             <p className={styles.text}>
-              My expertise combines web development, content creation, video editing, storytelling, personal branding, and AI-powered workflows to create digital experiences that not only look professional but also drive meaningful results.
+              {t('about.p2')}
             </p>
             <p className={styles.text}>
-              Whether you're launching a new business, building your personal brand, or scaling your online presence, I deliver solutions tailored to your goals—from design and development to content strategy and ongoing digital growth.
+              {t('about.p3')}
             </p>
             
-            <h3 className={styles.sectionHeading}>What I Do</h3>
+            <h3 className={styles.sectionHeading}>{t('about.whatIDo')}</h3>
             <ul className={styles.servicesList}>
-              <li>🌐 Professional Website Development</li>
-              <li>🎬 Short & Long Form Video Editing</li>
-              <li>✍️ Content Writing & Copywriting</li>
-              <li>📖 Storytelling & Script Writing</li>
-              <li>📱 Social Media Management</li>
-              <li>🚀 Personal Branding</li>
-              <li>🤖 AI-Powered Digital Solutions</li>
-              <li>💼 SaaS & Business Solutions</li>
+              <li>{t('about.s1')}</li>
+              <li>{t('about.s2')}</li>
+              <li>{t('about.s3')}</li>
+              <li>{t('about.s4')}</li>
+              <li>{t('about.s5')}</li>
+              <li>{t('about.s6')}</li>
+              <li>{t('about.s7')}</li>
+              <li>{t('about.s8')}</li>
             </ul>
 
-            <h3 className={styles.sectionHeading}>My Approach</h3>
+            <h3 className={styles.sectionHeading}>{t('about.myApproach')}</h3>
             <p className={styles.text}>
-              I believe every brand has a story worth telling. My goal is to combine creativity, technology, and strategy to build digital products and content that leave a lasting impression and help businesses grow with confidence.
+              {t('about.p4')}
             </p>
             <p className={styles.text}>
-              Let's turn your ideas into impactful digital experiences.
+              {t('about.p5')}
             </p>
-          </div>
+          </motion.div>
           
-          <div className={styles.imageSection}>
+          <motion.div 
+            className={styles.imageSection}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className={styles.imageWrapper}>
               <div className={styles.brandCard}>
                 <div className={styles.brandGlow}></div>
@@ -82,7 +99,7 @@ export default function About() {
                 <Shield size={24} />
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

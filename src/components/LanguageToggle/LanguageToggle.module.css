@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleButton:hover {
+  background: var(--card-hover);
+}
+
+.currentLang {
+  font-size: 0.875rem;
+  font-weight: 500;
+}

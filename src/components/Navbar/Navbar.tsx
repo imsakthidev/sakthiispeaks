@@ -1,11 +1,15 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import styles from './Navbar.module.css';
 import { Menu, X } from 'lucide-react';
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
+import LanguageToggle from '../LanguageToggle/LanguageToggle';
+import { useLanguage } from '@/context/LanguageContext';
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,29 +28,46 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className={styles.navLinks}>
-          <a href="#about" className={styles.navLink}>About</a>
-          <a href="#projects" className={styles.navLink}>Projects</a>
-          <a href="#pricing" className={styles.navLink}>Pricing</a>
-          <a href="#contact" className={styles.navLink}>Contact</a>
+          <a href="#about" className={styles.navLink}>{t('nav.about')}</a>
+          <a href="#projects" className={styles.navLink}>{t('nav.projects')}</a>
+          <a href="#pricing" className={styles.navLink}>{t('nav.pricing')}</a>
+          <a href="#contact" className={styles.navLink}>{t('nav.contact')}</a>
+          <LanguageToggle />
+          <ThemeToggle />
         </div>
 
         {/* Mobile Toggle */}
-        <button 
-          className={styles.mobileToggle}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className={styles.mobileOnly}>
+          <button 
+            className={styles.mobileToggle}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
       {mobileMenuOpen && (
         <div className={`${styles.mobileNav} glass`}>
-          <a href="#about" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>About</a>
-          <a href="#projects" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Projects</a>
-          <a href="#pricing" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Pricing</a>
-          <a href="#contact" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>Contact</a>
+          <a href="#about" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            {t('nav.about')}
+          </a>
+          <a href="#projects" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            {t('nav.projects')}
+          </a>
+          <a href="#pricing" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            {t('nav.pricing')}
+          </a>
+          <a href="#contact" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            {t('nav.contact')}
+          </a>
+          
+          <div className={styles.mobileActions}>
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
         </div>
       )}
     </nav>
