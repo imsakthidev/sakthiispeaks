@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from 'react';
-import { Check, Info, Layout, Video, PenTool, Share2, Bot, Rocket } from 'lucide-react';
+import { Check, Info, Layout, Database, TrendingUp, PenTool, Bot, Code, Video, Megaphone, Smartphone, Star, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './Pricing.module.css';
 
 export default function Pricing() {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState<'web' | 'video' | 'content' | 'social' | 'ai' | 'growth'>('web');
+  const [activeTab, setActiveTab] = useState<'web' | 'saas' | 'content' | 'services' | 'bundles'>('web');
 
   const handleGetStarted = (planName: string) => {
     const messageEl = document.getElementById('message') as HTMLTextAreaElement;
@@ -27,34 +27,31 @@ export default function Pricing() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className={styles.title}>{t('pricing.title')}</h2>
+          <h2 className={styles.title}>Services & Pricing</h2>
           <div className={styles.line}></div>
           <p className={styles.subtitle}>
-            {t('pricing.subtitle')}
+            Personal Brand & Digital Growth Consulting. We build businesses, not just websites.
           </p>
         </motion.div>
 
-        {/* 6-Tab Navigation */}
+        {/* 5-Tab Navigation */}
         <div className={styles.tabsScrollWrapper}>
           <div className={styles.tabsContainer}>
             <div className={styles.tabsWrapper}>
               <button className={`${styles.tab} ${activeTab === 'web' ? styles.activeTab : ''}`} onClick={() => setActiveTab('web')}>
-                <Layout size={18} /> {t('pricing.webDev')}
+                <Layout size={18} /> Web Development
               </button>
-              <button className={`${styles.tab} ${activeTab === 'video' ? styles.activeTab : ''}`} onClick={() => setActiveTab('video')}>
-                <Video size={18} /> {t('pricing.videoEdit')}
+              <button className={`${styles.tab} ${activeTab === 'saas' ? styles.activeTab : ''}`} onClick={() => setActiveTab('saas')}>
+                <Database size={18} /> SaaS & Software
               </button>
               <button className={`${styles.tab} ${activeTab === 'content' ? styles.activeTab : ''}`} onClick={() => setActiveTab('content')}>
-                <PenTool size={18} /> Content & Story
+                <Video size={18} /> Content Packages
               </button>
-              <button className={`${styles.tab} ${activeTab === 'social' ? styles.activeTab : ''}`} onClick={() => setActiveTab('social')}>
-                <Share2 size={18} /> {t('pricing.socialMedia')}
+              <button className={`${styles.tab} ${activeTab === 'services' ? styles.activeTab : ''}`} onClick={() => setActiveTab('services')}>
+                <PenTool size={18} /> Digital Services
               </button>
-              <button className={`${styles.tab} ${activeTab === 'ai' ? styles.activeTab : ''}`} onClick={() => setActiveTab('ai')}>
-                <Bot size={18} /> AI Services
-              </button>
-              <button className={`${styles.tab} ${activeTab === 'growth' ? styles.activeTab : ''}`} onClick={() => setActiveTab('growth')}>
-                <Rocket size={18} /> {t('pricing.growthKits')}
+              <button className={`${styles.tab} ${activeTab === 'bundles' ? styles.activeTab : ''}`} onClick={() => setActiveTab('bundles')}>
+                <Star size={18} /> Business Bundles
               </button>
             </div>
           </div>
@@ -62,6 +59,7 @@ export default function Pricing() {
 
         {/* Tab Content with AnimatePresence */}
         <AnimatePresence mode="wait">
+          
           {/* 1. WEB DEVELOPMENT TAB */}
           {activeTab === 'web' && (
             <motion.div 
@@ -72,174 +70,179 @@ export default function Pricing() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
+              <h3 className={styles.sectionTitle}><Layout size={20} style={{display:'inline', marginRight:'8px'}}/> Website Solutions</h3>
               <div className={styles.cardsGrid}>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>🚀 Starter Website</h3>
-                  <div className={styles.planPrice}>₹9,999</div>
-                  <p className={styles.planDesc}>Perfect for individuals and freelancers.</p>
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Starter Portfolio</h3>
+                    <div className={styles.planPrice}>₹9,999</div>
+                    <p className={styles.planDesc}>Perfect for students and freelancers.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 1 Responsive Landing Page</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Contact Form & Basic SEO</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> GitHub + Vercel Deployment</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> Delivery: 3–5 Days (2 Revisions)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Starter Portfolio Website')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Responsive 1 Landing Page</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Modern UI Design & Mobile Opt.</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Contact Form & SSL Security</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> GitHub + Vercel Deployment</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Basic SEO & Perf. Opt.</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 2 Revisions</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 3–5 Days</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Starter Website package')} className={styles.ctaButton}>Get Started</button>
+
+                <div className={`${styles.card} ${styles.popularCard}`}>
+                  <div className={styles.popularBadge}>Most Popular</div>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Professional Portfolio</h3>
+                    <div className={styles.planPrice}>₹19,999</div>
+                    <p className={styles.planDesc}>For creators, doctors & personal brands.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Up to 5 Pages (Custom UI/UX)</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Smooth Animations & Resume</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced SEO & Analytics</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> Delivery: 5–7 Days (5 Revisions)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Professional Portfolio Website')} className={styles.ctaButton}>Get Started</button>
+                </div>
+
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Business Website</h3>
+                    <div className={styles.planPrice}>₹34,999</div>
+                    <p className={styles.planDesc}>For startups and small businesses.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Up to 10 Pages (Premium UI)</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Services, Testimonials, Blog Support</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> WhatsApp & Tech SEO</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> Delivery: 7–14 Days (30 Days Support)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Business Website')} className={styles.ctaButton}>Get Started</button>
+                </div>
               </div>
 
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>💼 Professional Website</h3>
-                  <div className={styles.planPrice}>₹19,999</div>
-                  <p className={styles.planDesc}>Perfect for professionals and personal brands.</p>
+              <div className={styles.cardsGrid} style={{marginTop: '2rem'}}>
+                <div className={`${styles.card}`} style={{gridColumn: '1 / -1', maxWidth: '800px', margin: '0 auto', textAlign:'center'}}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>⚡ Premium Business Website</h3>
+                    <div className={styles.planPrice}>₹59,999<span>+</span></div>
+                    <p className={styles.planDesc} style={{margin: '0 auto'}}>For businesses requiring advanced functionality.</p>
+                  </div>
+                  <ul className={styles.featuresList} style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))', gap:'1rem', textAlign:'left'}}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Unlimited Pages & Custom Design</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Admin Dashboard & Database</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> API, Auth, & Email Automation</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> Delivery: 2–6 Weeks (3 Months Support)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Premium Business Website')} className={styles.ctaButton} style={{maxWidth: '300px', margin: '2rem auto 0'}}>Get Custom Quote</button>
                 </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Up to 5 Pages (Premium UI/UX)</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Resume, Portfolio & Gallery</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Blog Setup & Contact Form</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Domain Config & Advanced SEO</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Google Analytics & Search Console</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 5 Revisions</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 5–7 Days</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Professional Website package')} className={styles.ctaButton}>Get Started</button>
               </div>
 
-              <div className={`${styles.card} ${styles.popularCard}`}>
-                <div className={styles.popularBadge}>Most Popular</div>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>🏢 Business Website</h3>
-                  <div className={styles.planPrice}>₹34,999</div>
-                  <p className={styles.planDesc}>Ideal for companies and startups.</p>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Up to 10 Pages (Premium Design)</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Services, Team, Testimonials</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> WhatsApp & Google Maps</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Blog, Analytics & Search Console</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Technical SEO & Speed Opt.</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 30 Days Support</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Delivery in 7–14 Days</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Business Website package')} className={styles.ctaButton}>Get Started</button>
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><Code size={20} style={{display:'inline', marginRight:'8px'}}/> Additional Web Services</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Website Redesign</div><div className={styles.servicePrice}>Starts at ₹15,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Multilingual Website</div><div className={styles.servicePrice}>Starts at ₹10,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Payment Gateway</div><div className={styles.servicePrice}>₹7,500</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Blog Setup</div><div className={styles.servicePrice}>₹4,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Pro Email Setup</div><div className={styles.servicePrice}>₹2,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Extra Page / Google Analytics</div><div className={styles.servicePrice}>₹1,500 each</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Domain / WhatsApp</div><div className={styles.servicePrice}>₹1,000 each</div></div></div>
               </div>
 
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>⚡ Enterprise Website</h3>
-                  <div className={styles.planPrice}>₹59,999<span>+</span></div>
-                  <p className={styles.planDesc}>Fully custom, advanced web applications.</p>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Unlimited Pages (Custom Design)</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Admin Dashboard & Database</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Booking System & Authentication</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Payment Gateway & API Integration</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Email Auto, Security & Animations</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 3 Months Support</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Enterprise Website package')} className={styles.ctaButton}>Get Started</button>
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><TrendingUp size={20} style={{display:'inline', marginRight:'8px'}}/> Monthly Maintenance</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Basic</div><div className={styles.servicePrice}>₹999/month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Standard</div><div className={styles.servicePrice}>₹1,999/month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Premium</div><div className={styles.servicePrice}>₹3,999/month</div></div></div>
               </div>
-            </div>
             </motion.div>
           )}
 
-          {/* 2. VIDEO EDITING TAB */}
-          {activeTab === 'video' && (
+          {/* 2. SAAS DEVELOPMENT TAB */}
+          {activeTab === 'saas' && (
             <motion.div 
-              key="video"
+              key="saas"
               className={styles.tabContent}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              
-              <h3 className={styles.sectionTitle}>📱 Shorts Editing</h3>
-            <div className={styles.cardsGrid}>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Basic Shorts</h3>
-                  <div className={styles.planPrice}>₹1,000<span>/Video</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Cuts & Trimming</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Standard Captions</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Background Music</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Basic Color Correction</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Basic Shorts Editing')} className={styles.ctaButton}>Get Started</button>
+              <div className={styles.termsSection} style={{marginBottom: '3rem'}}>
+                <h4 className={styles.termsTitle}><Info size={20} className={styles.infoIcon} /> Subscription Model Available!</h4>
+                <p className={styles.termsList} style={{opacity: 0.9, lineHeight: 1.6, paddingLeft: '1.5rem'}}>
+                  Sometimes you don't want to own the code—you just want to use the software! Instead of a massive upfront cost, ask us about our <strong>Subscription Setup</strong> (Setup Fee: ₹25,000 + Monthly Subscription: ₹999–₹9,999/mo).
+                </p>
               </div>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Pro Shorts</h3>
-                  <div className={styles.planPrice}>₹2,000<span>/video</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Motion Graphics</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Sound Design</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Premium Captions</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> AI Effects & Color Grading</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Hook Optimization</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Pro Shorts Editing')} className={styles.ctaButton}>Get Started</button>
-              </div>
-              <div className={`${styles.card} ${styles.popularCard}`}>
-                <div className={styles.popularBadge}>Best For Growth</div>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Viral Shorts</h3>
-                  <div className={styles.planPrice}>₹4,000<span>/video</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Research & Storytelling</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Viral Structure Planning</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Premium Motion Graphics</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced Editing & VFX</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Custom Thumbnail Included</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Viral Shorts Editing')} className={styles.ctaButton}>Get Started</button>
-              </div>
-            </div>
 
-            <h3 className={styles.sectionTitle} style={{marginTop: '2rem'}}>🎥 Long Form Editing</h3>
-            <div className={styles.servicesGrid}>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>5–10 Minutes Video</div>
-                  <div className={styles.servicePrice}>₹3,500/video</div>
+              <h3 className={styles.sectionTitle}><Database size={20} style={{display:'inline', marginRight:'8px'}}/> SaaS Development</h3>
+              <div className={styles.cardsGrid}>
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🟢 MVP SaaS</h3>
+                    <div className={styles.planPrice}>₹75,000<span>+</span></div>
+                    <p className={styles.planDesc}>Validate your idea quickly.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Auth, Dashboard, Database</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> CRUD Ops & Email Notifications</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> 3–6 Weeks (30 Days Support)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('MVP SaaS')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <button onClick={() => handleGetStarted('5-10 Min Long Form Video Editing')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>10–20 Minutes Video</div>
-                  <div className={styles.servicePrice}>₹6,000/video</div>
+
+                <div className={`${styles.card} ${styles.popularCard}`}>
+                  <div className={styles.popularBadge}>Growth</div>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🔵 Professional SaaS</h3>
+                    <div className={styles.planPrice}>₹2,00,000<span>+</span></div>
+                    <p className={styles.planDesc}>For growing businesses.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Everything in MVP + Payments</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Role-based Access & API</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> 6–10 Weeks (60 Days Support)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Professional SaaS')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <button onClick={() => handleGetStarted('10-20 Min Long Form Video Editing')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>Documentary Style</div>
-                  <div className={styles.servicePrice}>₹10,000–25,000/video</div>
+
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🟣 Enterprise SaaS</h3>
+                    <div className={styles.planPrice}>₹5,00,000<span>+</span></div>
+                    <p className={styles.planDesc}>For larger organizations.</p>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Multi-Tenant & Custom Arch.</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> AI Features & CI/CD Pipeline</li>
+                    <li className={styles.feature}><Clock size={16} className={styles.checkIcon} style={{color: '#64748b'}} /> 2–6 Months (90 Days Support)</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Enterprise SaaS')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <button onClick={() => handleGetStarted('Documentary Style Video Editing')} className={styles.smallCtaButton}>Select</button>
               </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>Podcast Editing</div>
-                  <div className={styles.servicePrice}>₹5,000/video</div>
-                </div>
-                <button onClick={() => handleGetStarted('Podcast Editing')} className={styles.smallCtaButton}>Select</button>
+
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><Bot size={20} style={{display:'inline', marginRight:'8px'}}/> Custom Feature Pricing</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>AI Integration</div><div className={styles.servicePrice}>₹25k – ₹1L+</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Mobile App API</div><div className={styles.servicePrice}>₹30k – ₹1L+</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Analytics Dashboard</div><div className={styles.servicePrice}>₹20k – ₹60k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Admin Dashboard</div><div className={styles.servicePrice}>₹20k – ₹60k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Subscription Billing</div><div className={styles.servicePrice}>₹20k – ₹50k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>API Integration</div><div className={styles.servicePrice}>₹10k – ₹50k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Payment Gateway</div><div className={styles.servicePrice}>₹15k – ₹40k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>File Upload System</div><div className={styles.servicePrice}>₹10k – ₹30k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Login & Authentication</div><div className={styles.servicePrice}>₹10k – ₹25k</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Notifications (Email/SMS)</div><div className={styles.servicePrice}>₹8k – ₹25k</div></div></div>
               </div>
-            </div>
+
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><Code size={20} style={{display:'inline', marginRight:'8px'}}/> SaaS Monthly Maintenance</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Basic (Bug Fixes, Backups)</div><div className={styles.servicePrice}>₹5,000/month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Standard (+ Performance)</div><div className={styles.servicePrice}>₹10,000/month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Premium (+ Feature Updates)</div><div className={styles.servicePrice}>₹20,000+/month</div></div></div>
+              </div>
             </motion.div>
           )}
 
-          {/* 3. CONTENT & STORYTELLING TAB */}
+          {/* 3. CONTENT PACKAGES TAB */}
           {activeTab === 'content' && (
             <motion.div 
               key="content"
@@ -249,419 +252,178 @@ export default function Pricing() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.twoColumnLayout}>
-              <div>
-                <h3 className={styles.sectionTitle}>✍️ Content Writing</h3>
-                <div className={styles.servicesGrid} style={{gridTemplateColumns: '1fr'}}>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Instagram Caption</div>
-                      <div className={styles.servicePrice}>₹300</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Instagram Caption Writing')} className={styles.smallCtaButton}>Select</button>
+              <h3 className={styles.sectionTitle}><PenTool size={20} style={{display:'inline', marginRight:'8px'}}/> Content Creation Packages</h3>
+              <div className={styles.cardsGrid}>
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🟢 Starter Creator</h3>
+                    <div className={styles.planPrice}>₹15,000<span>/mo</span></div>
+                    <p className={styles.planDesc}>Best for local businesses & startups.</p>
                   </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>LinkedIn Post</div>
-                      <div className={styles.servicePrice}>₹700</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('LinkedIn Post Writing')} className={styles.smallCtaButton}>Select</button>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 8 Short Videos & Editing</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Captions & Hashtag Research</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Calendar</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 2 Strategy Calls</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Starter Creator Package')} className={styles.ctaButton}>Get Started</button>
+                </div>
+                <div className={`${styles.card} ${styles.popularCard}`}>
+                  <div className={styles.popularBadge}>Growth</div>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🔵 Growth Package</h3>
+                    <div className={styles.planPrice}>₹30,000<span>/mo</span></div>
+                    <p className={styles.planDesc}>Best for personal brands.</p>
                   </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Blog Article (1000 words)</div>
-                      <div className={styles.servicePrice}>₹2,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Blog Article Writing')} className={styles.smallCtaButton}>Select</button>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 12-16 Shorts & 2 Long Videos</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Script Writing & Storytelling</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> IG & YT Management</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Weekly Strategy Meeting</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Growth Creator Package')} className={styles.ctaButton}>Get Started</button>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🟣 Premium Brand</h3>
+                    <div className={styles.planPrice}>₹60,000<span>+/mo</span></div>
+                    <p className={styles.planDesc}>For CEOs, influencers, coaches.</p>
                   </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Website Content</div>
-                      <div className={styles.servicePrice}>₹5,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Website Content Writing')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Product Description</div>
-                      <div className={styles.servicePrice}>₹500</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Product Description Writing')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Email Copywriting</div>
-                      <div className={styles.servicePrice}>₹1,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Email Copywriting')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Sales Landing Page</div>
-                      <div className={styles.servicePrice}>₹7,500</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Sales Landing Page Copywriting')} className={styles.smallCtaButton}>Select</button>
-                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 20+ Shorts & 4 Long Videos</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced Storytelling & Research</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Complete Social Management</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Unlimited Strategy Calls</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Premium Brand Management')} className={styles.ctaButton}>Get Started</button>
                 </div>
               </div>
 
-              <div>
-                <h3 className={styles.sectionTitle}>📖 Storytelling Scripts</h3>
-                <div className={styles.servicesGrid} style={{gridTemplateColumns: '1fr'}}>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>60-sec Story Script</div>
-                      <div className={styles.servicePrice}>₹2,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('60-sec Story Script')} className={styles.smallCtaButton}>Select</button>
+              <div className={styles.cardsGrid} style={{marginTop: '2rem'}}>
+                <div className={`${styles.card} ${styles.popularCard}`} style={{gridColumn: '1 / -1', maxWidth: '800px', margin: '0 auto', textAlign:'center'}}>
+                  <div className={styles.popularBadge}>The Ultimate Package</div>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>🎯 Complete Personal Brand</h3>
+                    <div className={styles.planPrice}>₹75k–1.5L<span>/mo</span></div>
                   </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>3–5 min Story</div>
-                      <div className={styles.servicePrice}>₹4,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('3-5 min Story Script')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>10 min Documentary Script</div>
-                      <div className={styles.servicePrice}>₹8,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('10 min Documentary Script')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Brand Story</div>
-                      <div className={styles.servicePrice}>₹10,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Brand Story Script')} className={styles.smallCtaButton}>Select</button>
-                  </div>
-                  <div className={styles.serviceItem}>
-                    <div>
-                      <div className={styles.serviceName}>Founder Story</div>
-                      <div className={styles.servicePrice}>₹12,000</div>
-                    </div>
-                    <button onClick={() => handleGetStarted('Founder Story Script')} className={styles.smallCtaButton}>Select</button>
-                  </div>
+                  <ul className={styles.featuresList} style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(200px, 1fr))', gap:'1rem', textAlign:'left'}}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Brand Strategy & Research</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Scripts, Storytelling & Recording Guidance</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Short & Long Video Editing</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> SEO, Publishing & Management</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Complete Personal Brand Package')} className={styles.ctaButton} style={{maxWidth: '300px', margin: '2rem auto 0'}}>Become an Authority</button>
                 </div>
               </div>
-            </div>
             </motion.div>
           )}
 
-          {/* 4. SOCIAL MEDIA & BRANDING TAB */}
-          {activeTab === 'social' && (
+          {/* 4. DIGITAL SERVICES TAB */}
+          {activeTab === 'services' && (
             <motion.div 
-              key="social"
+              key="services"
               className={styles.tabContent}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
+              <h3 className={styles.sectionTitle}><Video size={20} style={{display:'inline', marginRight:'8px'}}/> Video Editing</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Documentary Editing</div><div className={styles.servicePrice}>₹8k – ₹25k / video</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Long Video (10-15m)</div><div className={styles.servicePrice}>₹3k – ₹8k / video</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Premium Shorts</div><div className={styles.servicePrice}>₹2.5k – ₹5k / video</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Short Video</div><div className={styles.servicePrice}>₹800 – ₹2.5k / video</div></div></div>
+              </div>
+
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><PenTool size={20} style={{display:'inline', marginRight:'8px'}}/> Strategy & Writing</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Storytelling Script</div><div className={styles.servicePrice}>₹3,000 – ₹10,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Script Writing</div><div className={styles.servicePrice}>₹1,500 – ₹5,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Content Strategy</div><div className={styles.servicePrice}>₹5,000 – ₹20,000</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Brand Consultation (60m)</div><div className={styles.servicePrice}>₹3,000 – ₹7,500</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Thumbnail Design</div><div className={styles.servicePrice}>₹500 – ₹2,000</div></div></div>
+              </div>
+
+              <h3 className={styles.sectionTitle} style={{marginTop: '4rem'}}><Megaphone size={20} style={{display:'inline', marginRight:'8px'}}/> Social Media Management</h3>
+              <div className={styles.servicesGrid}>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>YouTube Channel Mgmt</div><div className={styles.servicePrice}>₹12k – ₹30k / month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>LinkedIn Content Mgmt</div><div className={styles.servicePrice}>₹10k – ₹25k / month</div></div></div>
+                <div className={styles.serviceItem}><div><div className={styles.serviceName}>Instagram Mgmt</div><div className={styles.servicePrice}>₹8k – ₹20k / month</div></div></div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* 5. BUSINESS BUNDLES TAB */}
+          {activeTab === 'bundles' && (
+            <motion.div 
+              key="bundles"
+              className={styles.tabContent}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h3 className={styles.sectionTitle}><Star size={20} style={{display:'inline', marginRight:'8px'}}/> Website + Branding Bundles</h3>
+              <p style={{textAlign: 'center', opacity: 0.8, marginBottom: '3rem', maxWidth: '600px', margin: '0 auto 3rem'}}>
+                End-to-end digital transformation packages.
+              </p>
               
-              <h3 className={styles.sectionTitle}>📱 Social Media Management</h3>
-            <div className={styles.cardsGrid}>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Starter</h3>
-                  <div className={styles.planPrice}>₹15,000<span>/mo</span></div>
+              <div className={styles.cardsGrid}>
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Portfolio Bundle</h3>
+                    <div className={styles.planPrice}>₹35,000</div>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Portfolio Website Setup</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 1 Month Content Creation</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Portfolio Bundle')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 12 Posts</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Caption Writing</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Posting & Hashtag Research</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Report</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Starter Social Media Management')} className={styles.ctaButton}>Get Started</button>
-              </div>
-              <div className={`${styles.card} ${styles.popularCard}`}>
-                <div className={styles.popularBadge}>Most Popular</div>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Growth</h3>
-                  <div className={styles.planPrice}>₹30,000<span>/mo</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 20 Posts & 8 Reels</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Story Management</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Community Replies</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Calendar</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Analytics & Strategy Meeting</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Growth Social Media Management')} className={styles.ctaButton}>Get Started</button>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Premium</h3>
-                  <div className={styles.planPrice}>₹60,000<span>/mo</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Daily Posting (Reels & Long Vids)</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Community Management</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Strategy & Competitor Analysis</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Analytics Dashboard</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Growth Report</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Premium Social Media Management')} className={styles.ctaButton}>Get Started</button>
-              </div>
-            </div>
 
-            <h3 className={styles.sectionTitle} style={{marginTop: '3rem'}}>🎯 Personal Branding</h3>
-            <div className={styles.cardsGrid}>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Starter</h3>
-                  <div className={styles.planPrice}>₹20,000<span>/mo</span></div>
+                <div className={`${styles.card} ${styles.popularCard}`}>
+                  <div className={styles.popularBadge}>Best Value</div>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Business Bundle</h3>
+                    <div className={styles.planPrice}>₹60,000</div>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Business Website Setup</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 1 Month Content Creation</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Business Bundle')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Brand Strategy</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Planning</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 8 Reels</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 4 Posts</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Starter Personal Branding')} className={styles.ctaButton}>Get Started</button>
-              </div>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Professional</h3>
-                  <div className={styles.planPrice}>₹45,000<span>/mo</span></div>
+
+                <div className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <h3 className={styles.planName}>Complete Brand Launch</h3>
+                    <div className={styles.planPrice}>₹1,00,000<span>+</span></div>
+                  </div>
+                  <ul className={styles.featuresList}>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Premium Website</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Complete Branding</li>
+                    <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Growth Strategy</li>
+                  </ul>
+                  <button onClick={() => handleGetStarted('Complete Brand Launch')} className={styles.ctaButton}>Get Started</button>
                 </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Strategy</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 16 Reels & 4 Long Videos</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Script Writing & Storytelling</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Thumbnails & SEO</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Professional Personal Branding')} className={styles.ctaButton}>Get Started</button>
               </div>
-            </div>
-            
-            <div className={styles.ultimatePackage} style={{marginTop: '2rem'}}>
-              <div className={styles.ultimateHeader}>
-                <div className={styles.ultimateBadge}>The Ultimate Solution</div>
-                <h3 className={styles.ultimateTitle}>Complete Brand Management</h3>
-                <div className={styles.ultimatePrice}>₹75,000 – ₹1.5L <span>/ month</span></div>
-              </div>
-              <div className={styles.ultimateFeatures}>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Brand Positioning & Strategy</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> In-Depth Research</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Script Writing & Storytelling</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Recording Guidance</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Video Editing & Thumbnails</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Publishing & Analytics</div>
-                <div className={styles.uFeature}><Check size={20} className={styles.checkIcon} /> Monthly Consultation</div>
-              </div>
-              <button onClick={() => handleGetStarted('Complete Brand Management Package')} className={styles.ctaButton} style={{marginTop: '2rem'}}>Request A Consultation</button>
-            </div>
             </motion.div>
           )}
 
-          {/* 5. AI SERVICES TAB */}
-          {activeTab === 'ai' && (
-            <motion.div 
-              key="ai"
-              className={styles.tabContent}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h3 className={styles.sectionTitle}>🤖 AI Services & Integrations</h3>
-            <div className={styles.servicesGrid}>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>AI Workflow Setup</div>
-                  <div className={styles.servicePrice}>₹10,000</div>
-                </div>
-                <button onClick={() => handleGetStarted('AI Workflow Setup')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>ChatGPT Integration</div>
-                  <div className={styles.servicePrice}>₹15,000</div>
-                </div>
-                <button onClick={() => handleGetStarted('ChatGPT Integration')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>AI Content Automation</div>
-                  <div className={styles.servicePrice}>₹20,000</div>
-                </div>
-                <button onClick={() => handleGetStarted('AI Content Automation')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>Custom AI Assistant</div>
-                  <div className={styles.servicePrice}>₹25,000+</div>
-                </div>
-                <button onClick={() => handleGetStarted('Custom AI Assistant')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>Prompt Engineering</div>
-                  <div className={styles.servicePrice}>₹5,000</div>
-                </div>
-                <button onClick={() => handleGetStarted('Prompt Engineering')} className={styles.smallCtaButton}>Select</button>
-              </div>
-              <div className={styles.serviceItem}>
-                <div>
-                  <div className={styles.serviceName}>AI Consultation (1 Hour)</div>
-                  <div className={styles.servicePrice}>₹3,000</div>
-                </div>
-                <button onClick={() => handleGetStarted('AI Consultation (1 Hour)')} className={styles.smallCtaButton}>Select</button>
-              </div>
-            </div>
-            </motion.div>
-          )}
-
-          {/* 6. GROWTH PACKAGES TAB */}
-          {activeTab === 'growth' && (
-            <motion.div 
-              key="growth"
-              className={styles.tabContent}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h3 className={styles.sectionTitle}>🚀 Digital Growth Kits (Web + Content)</h3>
-            <div className={styles.cardsGrid}>
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Creator Launch Kit</h3>
-                  <div className={styles.planPrice}>₹35,000</div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Portfolio Website</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Branding & Logo Placement</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 8 Reels Included</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Initial SEO Setup</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Creator Launch Kit')} className={styles.ctaButton}>Get Started</button>
-              </div>
-
-              <div className={`${styles.card} ${styles.popularCard}`}>
-                <div className={styles.popularBadge}>Best Value</div>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Business Growth Kit</h3>
-                  <div className={styles.planPrice}>₹75,000</div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Full Business Website</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Analytics & Search Console</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> 20 Social Posts & 12 Reels</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Calendar</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Business Growth Kit')} className={styles.ctaButton}>Get Started</button>
-              </div>
-
-              <div className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.planName}>Complete Digital Presence</h3>
-                  <div className={styles.planPrice}>₹1,50,000<span>+</span></div>
-                </div>
-                <ul className={styles.featuresList}>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Premium Website</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Complete Personal Branding</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Content Strategy & SMM</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Advanced Video Editing & SEO</li>
-                  <li className={styles.feature}><Check size={18} className={styles.checkIcon} /> Monthly Consulting Dashboard</li>
-                </ul>
-                <button onClick={() => handleGetStarted('Complete Digital Presence Kit')} className={styles.ctaButton}>Get Started</button>
-              </div>
-            </div>
-            </motion.div>
-          )}
         </AnimatePresence>
 
-        {/* Global Footer: Additional Services & Payment Policy */}
-        <div style={{ marginTop: '2rem' }}>
-          <h3 className={styles.sectionTitle}>🔧 Additional Add-On Services</h3>
-          <div className={styles.servicesGrid}>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Logo Design</div>
-                <div className={styles.servicePrice}>₹3,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Logo Design')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Thumbnail Design</div>
-                <div className={styles.servicePrice}>₹800</div>
-              </div>
-              <button onClick={() => handleGetStarted('Thumbnail Design')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Business Card</div>
-                <div className={styles.servicePrice}>₹2,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Business Card Design')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Pitch Deck</div>
-                <div className={styles.servicePrice}>₹10,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Pitch Deck Design')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Presentation Design</div>
-                <div className={styles.servicePrice}>₹8,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Presentation Design')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Domain Setup</div>
-                <div className={styles.servicePrice}>₹1,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Domain Setup')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Business Email Setup</div>
-                <div className={styles.servicePrice}>₹2,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Business Email Setup')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Analytics & Console Setup</div>
-                <div className={styles.servicePrice}>₹3,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('Google Analytics & Search Console Setup')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>WhatsApp Integration</div>
-                <div className={styles.servicePrice}>₹1,000</div>
-              </div>
-              <button onClick={() => handleGetStarted('WhatsApp Integration')} className={styles.smallCtaButton}>Select</button>
-            </div>
-            <div className={styles.serviceItem}>
-              <div>
-                <div className={styles.serviceName}>Payment Gateway</div>
-                <div className={styles.servicePrice}>₹7,500</div>
-              </div>
-              <button onClick={() => handleGetStarted('Payment Gateway Integration')} className={styles.smallCtaButton}>Select</button>
-            </div>
-          </div>
-        </div>
-
-        {/* Global Payment Terms */}
-        <div className={styles.termsSection}>
-          <h4 className={styles.termsTitle}><Info size={20} className={styles.infoIcon} /> Payment Policy</h4>
+        {/* Global Footer: Payment Terms */}
+        <div className={styles.termsSection} style={{marginTop: '4rem'}}>
+          <h4 className={styles.termsTitle}><Info size={20} className={styles.infoIcon} /> Payment Terms & Policies</h4>
           <ul className={styles.termsList}>
-            <li><Check size={16} className={styles.infoIcon} /> 50% advance before project starts.</li>
-            <li><Check size={16} className={styles.infoIcon} /> Remaining 50% before final delivery (or monthly in advance for retainers).</li>
-            <li><Check size={16} className={styles.infoIcon} /> Scope changes are billed separately.</li>
-            <li><Check size={16} className={styles.infoIcon} /> Premium software, stock assets, domains, hosting, paid APIs, and advertising costs are charged separately.</li>
-            <li><Check size={16} className={styles.infoIcon} /> Website projects include 30 days of free bug-fix support.</li>
+            <li><Check size={16} className={styles.infoIcon} /> 50% advance before the project starts, 50% before final delivery (or monthly in advance for retainers).</li>
+            <li><Check size={16} className={styles.infoIcon} /> Free minor bug fixes for 30 days post-delivery (for websites/software).</li>
+            <li><Check size={16} className={styles.infoIcon} /> Premium stock assets, paid AI tools, domains, hosting, and ad spend billed separately.</li>
+            <li><Check size={16} className={styles.infoIcon} /> GST is extra (if applicable).</li>
           </ul>
         </div>
+
       </div>
     </section>
   );

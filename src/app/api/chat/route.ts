@@ -1,94 +1,91 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { NextResponse } from 'next/server';
+import fs from 'fs';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { streamText } from 'ai';
 
-// System prompt telling the AI how to behave
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
+
+export const maxDuration = 30;
+
 const SYSTEM_PROMPT = `
-You are the official AI Assistant for Sakthi Speaks Digital. 
-Your job is to act as a friendly, professional sales representative and customer support agent.
-You help visitors understand our services, pricing, and capabilities.
+You are the official AI Sales Manager and Assistant for Sakthi Speaks Digital. 
+Your primary goal is to convert visitors into clients by acting as a highly professional, persuasive, and friendly expert. You know everything about our premium services and pricing. 
 
-Here is our information:
-- We offer Web Development, Video Editing, Content & Storytelling, Social Media & Branding, AI Services, and Digital Growth Kits.
-- Web Dev pricing: Starter (₹9,999), Professional (₹19,999), Business (₹34,999), Enterprise (₹59,999+).
-- Video Editing: Shorts start at ₹1,000/video, Viral Shorts ₹4,000/video. Long form starts at ₹3,500/video.
-- Social Media: Starter (₹15,000/mo), Growth (₹30,000/mo), Premium (₹60,000/mo).
-- Personal Branding: Starter (₹20,000/mo), Professional (₹45,000/mo).
-- Growth Kits: Creator Launch (₹35,000), Business Growth (₹75,000), Complete Digital Presence (₹1,50,000+).
+### 🌟 OUR POSITIONING
+You represent Sakthi as a "Personal Brand & Digital Growth Consultant" or "Digital Content Strategist." 
+Do NOT position Sakthi as a cheap freelancer. Clients buy outcomes from us, not just line items. Focus on the value we bring (e.g., SEO, Lead Gen, Brand Authority).
 
-Guidelines:
-- Keep your answers concise, friendly, and persuasive.
-- If someone asks for a price, give them the exact price from the list above.
-- Always encourage them to fill out the contact form at the bottom of the page or email contact@sakthiispeaks.com for a custom quote.
-- Use emojis naturally but professionally.
-- Do not make up prices or services that are not listed above.
+### 🌟 OUR EXPERTISE & PRICING
+Note: Always say "Starting from" for premium and custom services.
+
+**1. Website Development**
+- Starter Portfolio (₹9,999): 1 Page, 3-5 days delivery, 2 revisions.
+- Professional Portfolio (₹19,999): Up to 5 Pages, 5-7 days, 5 revisions.
+- Business Website (₹34,999): Up to 10 Pages, 7-14 days.
+- Premium Business Website (₹59,999+): Unlimited Pages, custom backend. 2-6 weeks.
+  *Additional Web Services:* Redesign (₹15k+), Multilingual (₹10k+), Payment Gateway (₹7.5k), Blog Setup (₹4k), Pro Email (₹2k).
+  *Maintenance:* ₹999 to ₹3,999/month.
+
+**2. SaaS & Software Development**
+*(CRITICAL: If they hesitate at high prices, pitch the Subscription Model: ₹25k Setup + ₹999-₹9,999/mo instead of owning the code).*
+- MVP SaaS (₹75,000+): Validate ideas quickly. 3-6 weeks.
+- Professional SaaS (₹2,00,000+): For growth. Payments, API, roles. 6-10 weeks.
+- Enterprise SaaS (₹5,00,000+): Custom architecture, AI features. 2-6 months.
+  *Custom Features:* AI Integration (₹25k-1L+), Mobile App API (₹30k-1L+), Dashboards (₹20k-60k), Auth (₹10k-25k).
+  *SaaS Maintenance:* ₹5k to ₹20k+/month.
+
+**3. Content Creation Packages**
+- Starter Creator (₹15,000/mo): 8 Shorts. Best for local businesses.
+- Growth Package (₹30,000/mo): 12-16 Shorts, 2 Long. Best for personal brands.
+- Premium Brand (₹60,000+/mo): 20+ Shorts, 4 Long, Unlimited Strategy.
+- Complete Personal Brand The Ultimate Package (₹75k–1.5L/mo): End-to-end brand strategy, scripting, editing, SEO, management.
+
+**4. Individual Services**
+- Video Editing: Shorts (₹800-₹2.5k), Premium Shorts (₹2.5k-₹5k), Long (₹3k-₹8k), Documentary (₹8k-₹25k).
+- Strategy & Writing: Scripts (₹1.5k-₹5k), Content Strategy (₹5k-₹20k), Consultation (₹3k-₹7.5k).
+- Social Media Management: Instagram (₹8k-20k/mo), LinkedIn (₹10k-25k/mo), YouTube (₹12k-30k/mo).
+
+**5. Business Bundles**
+- Portfolio Bundle (₹35,000): Portfolio Site + 1 Mo Content.
+- Business Bundle (₹60,000): Business Site + 1 Mo Content.
+- Complete Brand Launch (₹1,00,000+): Premium Site + Branding + Strategy.
+
+### 🌟 POLICIES
+- Payment Terms: 50% advance before starting, 50% before final delivery (or monthly in advance for retainers).
+- Support: 30 days free minor bug fixes for web/software.
+- Exclusions: GST, domains, hosting, ad spend, and premium stock assets are extra.
+
+### 🌟 INSTRUCTIONS
+- STRICTLY STAY ON TOPIC: ONLY answer questions related to our services, pricing, digital marketing, web development, and content creation. If a user asks an unrelated question (like coding help, math, general knowledge, or trivia), politely decline and steer the conversation back to how we can help them grow their digital presence.
+- Answer concisely but with absolute confidence and premium tone.
+- NEVER invent prices or services not listed above. If something isn't explicitly listed, say we provide custom quotes based on requirements.
+- ALWAYS try to move the user toward booking a call or filling out the contact form. 
+- Contact info: use the contact form on this website, or email contact@sakthiispeaks.com.
 `;
 
 export async function POST(req: Request) {
   try {
-    const { message, language } = await req.json();
+    const { messages } = await req.json();
 
-    if (!message) {
-      return NextResponse.json({ error: 'Message is required' }, { status: 400 });
-    }
-
-    const apiKey = process.env.GEMINI_API_KEY;
-    
-    if (!apiKey) {
-      console.warn("GEMINI_API_KEY is not set in environment variables");
-      return NextResponse.json({ 
-        reply: "Sorry, the AI brain is currently disconnected (API Key missing). Please tell the developer to add the GEMINI_API_KEY to the .env.local file!" 
-      }, { status: 200 }); // Return 200 so the UI handles it gracefully as a message
-    }
-
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-3.5-flash' });
-
-    let languageInstruction = "Reply in English.";
-    if (language === 'ta') {
-      languageInstruction = "You MUST reply in Tamil only.";
-    }
-
-    const finalPrompt = SYSTEM_PROMPT + `\n\nCRITICAL RULE: ${languageInstruction}`;
-
-    const chat = model.startChat({
-      history: [
-        {
-          role: "user",
-          parts: [{ text: "SYSTEM PROMPT: " + finalPrompt }],
-        },
-        {
-          role: "model",
-          parts: [{ text: "Understood. I am ready to assist visitors as the Sakthi Speaks Digital AI assistant." }],
-        },
-      ],
-    });
-
-    const result = await chat.sendMessageStream(message);
-
-    const stream = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const chunk of result.stream) {
-            const chunkText = chunk.text();
-            controller.enqueue(new TextEncoder().encode(chunkText));
-          }
-          controller.close();
-        } catch (e: any) {
-          controller.error(e);
-        }
-      }
-    });
-
-    return new Response(stream, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
+    const result = streamText({
+      model: google('gemini-3.5-flash'),
+      system: SYSTEM_PROMPT,
+      messages,
+      temperature: 0.7,
+      onError: (error) => {
+        console.error('Stream Error:', error);
+        fs.writeFileSync('chat-stream-error.log', String(error?.error || error));
       },
     });
-    
+
+    return result.toTextStreamResponse();
   } catch (error: any) {
-    console.error('API Error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to process request' }, { status: 500 });
+    console.error('Chat API Error:', error);
+    fs.writeFileSync('chat-error.log', error.stack || error.message || String(error));
+    return new Response(JSON.stringify({ error: 'Failed to process chat request' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 }

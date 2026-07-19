@@ -4,6 +4,7 @@ import About from '@/components/About/About';
 import Projects from '@/components/Projects/Projects';
 import Contact from '@/components/Contact/Contact';
 import Pricing from '@/components/Pricing/Pricing';
+import SocialLinks from '@/components/SocialLinks/SocialLinks';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <About />
       <Projects />
       <Pricing />
+      <SocialLinks />
       <Contact />
     </main>
   );

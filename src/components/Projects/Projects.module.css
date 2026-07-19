@@ -37,6 +37,11 @@
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
+  
+  /* Center the 4th item (Wedding Website) on the bottom row */
+  .card:last-child:nth-child(4) {
+    grid-column: 2;
+  }
 }
 
 .card {

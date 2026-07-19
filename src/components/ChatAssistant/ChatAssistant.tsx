@@ -80,14 +80,15 @@ export default function ChatAssistant() {
 
     const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { id: Date.now().toString(), role: 'user', content: userMessage }]);
+    const newMessages: Message[] = [...messages, { id: Date.now().toString(), role: 'user', content: userMessage }];
+    setMessages(newMessages);
     setIsLoading(true);
 
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage, language }),
+        body: JSON.stringify({ messages: newMessages, language }),
       });
 
       if (!response.ok) {

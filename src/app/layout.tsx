@@ -49,14 +49,6 @@ export const metadata: Metadata = {
     description: "Web Developer, AI Solutions Expert & Digital Content Strategist helping businesses, startups and creators build powerful websites, engaging content and strong digital brands.",
     url: "https://sakthiispeaks.vercel.app",
     siteName: "Sakthi Speaks",
-    images: [
-      {
-        url: "/profile.PNG", // You should replace this with a larger OpenGraph image (1200x630) later
-        width: 800,
-        height: 600,
-        alt: "Sakthi Speaks Logo",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -64,7 +56,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sakthi Speaks | Web Developer, AI Solutions & Digital Creator",
     description: "Professional Website Development, Video Editing, AI Solutions, Storytelling, Content Writing & Social Media Management.",
-    images: ["/profile.PNG"],
   },
   icons: {
     icon: "/profile.PNG",
@@ -95,7 +86,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

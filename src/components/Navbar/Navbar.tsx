@@ -28,10 +28,12 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className={styles.navLinks}>
-          <a href="#about" className={styles.navLink}>{t('nav.about')}</a>
-          <a href="#projects" className={styles.navLink}>{t('nav.projects')}</a>
-          <a href="#pricing" className={styles.navLink}>{t('nav.pricing')}</a>
-          <a href="#contact" className={styles.navLink}>{t('nav.contact')}</a>
+          <a href="/#about" className={styles.navLink}>{t('nav.about')}</a>
+          <a href="/#projects" className={styles.navLink}>{t('nav.projects')}</a>
+          <a href="/#pricing" className={styles.navLink}>{t('nav.pricing')}</a>
+          <a href="/blog" className={styles.navLink}>{t('nav.blog')}</a>
+          <a href="/#links" className={styles.navLink}>Links</a>
+          <a href="/#contact" className={styles.navLink}>{t('nav.contact')}</a>
           <LanguageToggle />
           <ThemeToggle />
         </div>
@@ -51,16 +53,22 @@ export default function Navbar() {
       {/* Mobile Nav */}
       {mobileMenuOpen && (
         <div className={`${styles.mobileNav} glass`}>
-          <a href="#about" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+          <a href="/#about" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
             {t('nav.about')}
           </a>
-          <a href="#projects" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+          <a href="/#projects" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
             {t('nav.projects')}
           </a>
-          <a href="#pricing" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+          <a href="/#pricing" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
             {t('nav.pricing')}
           </a>
-          <a href="#contact" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+          <a href="/blog" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            {t('nav.blog')}
+          </a>
+          <a href="/#links" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
+            Links
+          </a>
+          <a href="/#contact" className={styles.mobileNavLink} onClick={() => setMobileMenuOpen(false)}>
             {t('nav.contact')}
           </a>
           
