@@ -11,6 +11,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { AuthProvider } from "@/context/AuthContext";
 import LoginModal from "@/components/LoginModal/LoginModal";
+import ScrollProgress from "@/components/ScrollProgress/ScrollProgress";
+import SplashScreen from "@/components/SplashScreen/SplashScreen";
+import FloatingOrbs from "@/components/FloatingOrbs/FloatingOrbs";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -100,6 +103,9 @@ export default function RootLayout({
         >
           <AuthProvider>
             <LanguageProvider>
+              <FloatingOrbs />
+              <SplashScreen />
+              <ScrollProgress />
               {children}
               <ChatAssistant />
               <Analytics />

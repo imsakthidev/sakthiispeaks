@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, User, Bot, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAuth } from '@/context/AuthContext';
@@ -171,28 +172,50 @@ export default function ChatAssistant() {
   return (
     <div className={styles.chatWrapper}>
       {/* Floating Buttons */}
-      <div className={styles.floatingButtonsContainer}>
-        <button 
-          className={`${styles.floatingButton} ${isOpen ? styles.hidden : ''}`}
-          onClick={() => setIsOpen(true)}
-        >
-          <MessageSquare size={24} />
-        </button>
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div 
+            className={styles.floatingButtonsContainer}
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20, pointerEvents: 'none' }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          >
+            <motion.button 
+              className={styles.floatingButton}
+              onClick={() => setIsOpen(true)}
+              whileHover={{ scale: 1.1, rotate: 10 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <MessageSquare size={24} />
+            </motion.button>
 
-        <a 
-          href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.floatingButton} ${styles.whatsappFloating} ${isOpen ? styles.hidden : ''}`}
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-          </svg>
-        </a>
-      </div>
+            <motion.a 
+              href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.floatingButton} ${styles.whatsappFloating}`}
+              whileHover={{ scale: 1.1, rotate: -10 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Chat Window */}
-      <div className={`${styles.chatWindow} ${isOpen ? styles.open : ''}`}>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className={styles.chatWindow}
+            initial={{ opacity: 0, y: 40, scale: 0.9, originX: 1, originY: 1 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9, pointerEvents: 'none' }}
+            transition={{ type: "spring", damping: 25, stiffness: 350 }}
+          >
         <div className={styles.header}>
           <div className={styles.headerInfo}>
             <Bot size={20} className={styles.headerIcon} />
@@ -200,18 +223,29 @@ export default function ChatAssistant() {
               <h3 className={styles.headerTitle}>Sakthi Speaks AI</h3>
               <span className={styles.headerSubtitle}>
                 <span className={styles.onlineDot}></span> 
-                <span className={styles.onlineText}>Online</span> • Replies instantly
+                <span className={styles.onlineText}>Online</span> • <span className={styles.repliesText}>Replies instantly</span>
               </span>
             </div>
           </div>
-          <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
+          <motion.button 
+            className={styles.closeButton} 
+            onClick={() => setIsOpen(false)}
+            whileHover={{ rotate: 90, scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <X size={20} />
-          </button>
+          </motion.button>
         </div>
 
         <div className={styles.messagesContainer}>
           {messages.map((msg) => (
-            <div key={msg.id} className={`${styles.messageWrapper} ${msg.role === 'user' ? styles.userWrapper : styles.assistantWrapper}`}>
+            <motion.div 
+              key={msg.id} 
+              className={`${styles.messageWrapper} ${msg.role === 'user' ? styles.userWrapper : styles.assistantWrapper}`}
+              initial={{ opacity: 0, y: 15, scale: 0.95, originX: msg.role === 'user' ? 1 : 0 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            >
               {msg.role === 'assistant' && (
                 <div className={styles.avatar}>
                   <Bot size={16} />
@@ -220,10 +254,14 @@ export default function ChatAssistant() {
               <div className={`${styles.message} ${msg.role === 'user' ? styles.userMessage : styles.assistantMessage}`}>
                 {msg.content}
               </div>
-            </div>
+            </motion.div>
           ))}
           {isLoading && (
-            <div className={`${styles.messageWrapper} ${styles.assistantWrapper}`}>
+            <motion.div 
+              className={`${styles.messageWrapper} ${styles.assistantWrapper}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
               <div className={styles.avatar}>
                 <Bot size={16} />
               </div>
@@ -231,7 +269,7 @@ export default function ChatAssistant() {
                 <Loader2 size={16} className={styles.spinner} />
                 <span>{t('chat.thinking')}</span>
               </div>
-            </div>
+            </motion.div>
           )}
           <div ref={messagesEndRef} />
         </div>
@@ -240,14 +278,19 @@ export default function ChatAssistant() {
         {messages.length === 1 && !isLoading && (
           <div className={styles.suggestionsContainer}>
             {SUGGESTED_QUESTIONS.map((q, idx) => (
-              <button 
+              <motion.button 
                 key={idx} 
                 className={styles.suggestionPill} 
                 onClick={() => handleSuggestionClick(q)}
                 disabled={isLoading}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
               >
                 {q}
-              </button>
+              </motion.button>
             ))}
           </div>
         )}
@@ -260,28 +303,33 @@ export default function ChatAssistant() {
             placeholder={t('chat.placeholder')}
             className={styles.input}
           />
-          <button 
+          <motion.button 
             type="submit" 
             className={styles.sendButton}
             disabled={!input.trim() || isLoading}
+            whileHover={!input.trim() || isLoading ? {} : { scale: 1.1, x: 2 }}
+            whileTap={!input.trim() || isLoading ? {} : { scale: 0.9 }}
           >
             <Send size={18} />
-          </button>
+          </motion.button>
         </form>
 
         {/* WhatsApp Link */}
-        <a 
+        <motion.a 
           href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!" 
           target="_blank" 
           rel="noopener noreferrer" 
           className={styles.whatsappLink}
+          whileHover={{ backgroundColor: "rgba(37, 211, 102, 0.15)" }}
         >
           <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className={styles.waIcon}>
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
           </svg>
           Prefer a human? Chat on WhatsApp &rarr;
-        </a>
-      </div>
+        </motion.a>
+      </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

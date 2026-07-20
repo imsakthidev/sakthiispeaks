@@ -2,6 +2,8 @@
 import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
+import MagneticWrapper from '@/components/MagneticWrapper/MagneticWrapper';
 import { useLanguage } from '@/context/LanguageContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -53,7 +55,7 @@ export default function Contact() {
     <section id="contact" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{t('contact.title')}</h2>
+          <AnimatedTitle className={styles.title} text={t('contact.title')} />
           <div className={styles.line}></div>
         </div>
 
@@ -129,9 +131,11 @@ export default function Contact() {
                 <textarea id="message" name="message" className={styles.textarea} placeholder="How can I help you?" rows={5} required></textarea>
               </div>
               
-              <button type="submit" className={styles.submitButton} disabled={status === 'Sending...'}>
-                {status === 'Sending...' ? 'Sending...' : t('contact.send')}
-              </button>
+              <MagneticWrapper>
+                <button type="submit" className={styles.submitButton} disabled={status === 'Sending...'}>
+                  {status === 'Sending...' ? 'Sending...' : t('contact.send')}
+                </button>
+              </MagneticWrapper>
               
               {status && status !== t('contact.sending') && (
                 <p className={styles.statusMessage} style={{ marginTop: '15px', color: status === t('contact.success') ? '#10b981' : '#ef4444', fontSize: '14px', textAlign: 'center' }}>

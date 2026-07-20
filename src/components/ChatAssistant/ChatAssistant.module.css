@@ -32,13 +32,7 @@
 }
 
 .floatingButton:hover {
-  transform: scale(1.05);
-}
-
-.floatingButton.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.8);
+  /* transform: scale(1.05); removed to let framer motion handle it */
 }
 
 .chatWindow {
@@ -55,17 +49,6 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px) scale(0.95);
-  transform-origin: bottom right;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.chatWindow.open {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateY(0) scale(1);
 }
 
 .header {
@@ -103,6 +86,11 @@
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.repliesText {
+  color: #1e1b4b; /* Deep dark navy for strong contrast */
+  font-weight: 500;
 }
 
 .onlineDot {
@@ -271,7 +259,7 @@
 }
 
 .sendButton:not(:disabled):hover {
-  transform: scale(1.05);
+  /* framer motion handles hover */
 }
 
 /* Suggestion Pills */

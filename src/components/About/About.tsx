@@ -1,13 +1,34 @@
 "use client";
 import React from 'react';
 import { Code, Mic, Video, BookOpen, TrendingUp, Plane, Shield } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useTransform, useScroll } from 'framer-motion';
 import { Caveat, Montserrat } from 'next/font/google';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './About.module.css';
 
 const caveat = Caveat({ subsets: ['latin'], weight: ['700'] });
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['900'] });
+
+const HighlightText = ({ children }: { children: React.ReactNode }) => {
+  const textRef = React.useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: textRef,
+    offset: ["start 85%", "start 40%"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
+  
+  return (
+    <motion.p 
+      ref={textRef}
+      className={styles.text} 
+      style={{ opacity, transition: 'opacity 0.1s ease' }}
+    >
+      {children}
+    </motion.p>
+  );
+};
 
 export default function About() {
   const { t } = useLanguage();
@@ -16,7 +37,7 @@ export default function About() {
     <section id="about" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{t('about.title')}</h2>
+          <AnimatedTitle className={styles.title} text={t('about.title')} />
           <div className={styles.line}></div>
         </div>
         
@@ -54,12 +75,46 @@ export default function About() {
             </ul>
 
             <h3 className={styles.sectionHeading}>{t('about.myApproach')}</h3>
-            <p className={styles.text}>
+            <HighlightText>
               {t('about.p4')}
-            </p>
-            <p className={styles.text}>
+            </HighlightText>
+            <HighlightText>
               {t('about.p5')}
-            </p>
+            </HighlightText>
+            
+            <motion.div 
+              style={{ marginTop: '30px', width: '150px' }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
+              <svg viewBox="0 0 250 80" xmlns="http://www.w3.org/2000/svg">
+                <motion.path
+                  d="M10,40 C30,10 60,70 90,40 C110,20 130,20 150,40 C170,60 190,60 210,40 C230,20 240,30 240,40"
+                  fill="transparent"
+                  stroke="url(#sigGradient)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  variants={{
+                    hidden: { pathLength: 0, opacity: 0 },
+                    visible: {
+                      pathLength: 1,
+                      opacity: 1,
+                      transition: { duration: 1.5, ease: "easeInOut", delay: 0.3 }
+                    }
+                  }}
+                />
+                <defs>
+                  <linearGradient id="sigGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#7c3aed" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div style={{ fontFamily: 'var(--font-outfit)', fontSize: '14px', fontWeight: 'bold', color: 'var(--text-secondary)', marginTop: '5px', marginLeft: '10px' }}>
+                Sakthi Speaks Digital
+              </div>
+            </motion.div>
           </motion.div>
           
           <motion.div 

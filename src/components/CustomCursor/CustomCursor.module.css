@@ -1,0 +1,25 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(124, 58, 237, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+  background-color: transparent;
+  transition: transform 0.2s ease, background-color 0.2s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+}
+
+.hovering {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(124, 58, 237, 0.1);
+  border-color: rgba(124, 58, 237, 0.8);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+  /* Need to offset the margin since we increased size to keep it centered */
+  margin-top: -8px;
+  margin-left: -8px;
+}

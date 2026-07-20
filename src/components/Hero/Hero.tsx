@@ -1,18 +1,119 @@
 "use client";
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants, useScroll, useTransform, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { ArrowRight, Mail } from 'lucide-react';
+import MagneticWrapper from '@/components/MagneticWrapper/MagneticWrapper';
 import { useLanguage } from '@/context/LanguageContext';
 import styles from './Hero.module.css';
+
+const ScrambleText = ({ text }: { text: string }) => {
+  const [displayText, setDisplayText] = React.useState(text);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    setDisplayText(text);
+  }, [text]);
+
+  const handleMouseEnter = () => {
+    let iteration = 0;
+    const chars = "!<>-_\\\\/[]{}—=+*^?#________";
+    
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    
+    intervalRef.current = setInterval(() => {
+      setDisplayText(
+        text.split("").map((letter, index) => {
+          if (index < iteration) return text[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("")
+      );
+      
+      if (iteration >= text.length) {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      }
+      iteration += 1 / 3;
+    }, 30);
+  };
+
+  const handleMouseLeave = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setDisplayText(text);
+  };
+
+  return (
+    <span 
+      onMouseEnter={handleMouseEnter} 
+      onMouseLeave={handleMouseLeave}
+    >
+      {displayText}
+    </span>
+  );
+};
 
 export default function Hero() {
   const { t } = useLanguage();
 
+  const { scrollY } = useScroll();
+  const backgroundY = useTransform(scrollY, [0, 1000], ["0%", "50%"]);
+  const imageY = useTransform(scrollY, [0, 1000], ["0%", "20%"]);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const { currentTarget, clientX, clientY } = e;
+    const { left, top } = currentTarget.getBoundingClientRect();
+    
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: [0.2, 0.65, 0.3, 0.9] }
+    }
+  };
+
+  const splitText = (text: string) => {
+    return text.split(' ').map((word, index) => (
+      <motion.span 
+        key={index} 
+        variants={itemVariants} 
+        style={{ display: 'inline-block', marginRight: '0.25em' }}
+      >
+        {word}
+      </motion.span>
+    ));
+  };
+
   return (
-    <section id="home" className={styles.hero}>
+    <section id="home" className={styles.hero} onMouseMove={handleMouseMove}>
+      <motion.div 
+        style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          pointerEvents: 'none',
+          zIndex: 0,
+          background: useMotionTemplate`radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(124, 58, 237, 0.15), transparent 80%)`
+        }}
+      />
       <div className={styles.backgroundEffects}>
-        <div className={styles.glow1}></div>
-        <div className={styles.glow2}></div>
+        <motion.div style={{ y: backgroundY }} className={styles.glow1}></motion.div>
+        <motion.div style={{ y: backgroundY }} className={styles.glow2}></motion.div>
       </div>
       
       <div className={`container ${styles.container}`}>
@@ -32,18 +133,31 @@ export default function Hero() {
               {t('hero.badge')}
             </motion.div>
             
-            <h1 className={styles.title}>
-              {t('hero.title1')} <span className="text-gradient">{t('hero.title2')}</span>
-            </h1>
+            <motion.h1 
+              className={styles.title}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {splitText(t('hero.title1'))} 
+              <span className="text-gradient">{splitText(t('hero.title2'))}</span>
+            </motion.h1>
             
-            <p className={styles.subtitle}>
-              {t('hero.subtitle')}
-            </p>
+            <motion.p 
+              className={styles.subtitle}
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {splitText(t('hero.subtitle'))}
+            </motion.p>
             
             <div className={styles.actions}>
-              <a href="#projects" className={styles.primaryButton}>
-                {t('hero.cta')} <ArrowRight size={18} />
-              </a>
+              <MagneticWrapper>
+                <a href="#projects" className={styles.primaryButton}>
+                  <ScrambleText text={t('hero.cta')} /> <ArrowRight size={18} />
+                </a>
+              </MagneticWrapper>
               <div className={styles.socialLinks}>
                 <a href="https://github.com/imsakthidev" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className={styles.socialLink}>
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A4.8 4.8 0 0 0 8 18v4"></path></svg>
@@ -69,6 +183,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            style={{ y: imageY, position: 'relative' }}
           >
             <img 
               src="/hero-poster.PNG" 

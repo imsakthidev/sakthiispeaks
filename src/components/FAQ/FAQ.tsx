@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import styles from './FAQ.module.css';
@@ -75,7 +76,7 @@ export default function FAQ() {
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
           <div className={styles.line}></div>
-          <h2 className={styles.title}>Frequently Asked Questions</h2>
+          <AnimatedTitle className={styles.title} text="Frequently Asked Questions" />
           <div className={styles.line}></div>
         </div>
 
@@ -104,13 +105,24 @@ export default function FAQ() {
                       <ChevronDown size={20} />
                     </div>
                   </button>
-                  <div className={`${styles.faqAnswerWrapper} ${isOpen ? styles.faqAnswerWrapperOpen : ''}`}>
-                    <div className={styles.faqAnswerInner}>
-                      <p className={styles.faqAnswer}>
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div 
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className={styles.faqAnswerWrapper}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className={styles.faqAnswerInner}>
+                          <p className={styles.faqAnswer}>
+                            {faq.answer}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               );
             })}
