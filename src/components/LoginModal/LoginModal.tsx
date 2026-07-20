@@ -15,7 +15,6 @@ export default function LoginModal() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   
@@ -46,24 +45,9 @@ export default function LoginModal() {
     e.preventDefault();
     setError('');
     try {
-      if (isSignUp) {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        
-        // Set the display name in Firebase Auth
-        await updateProfile(userCredential.user, { displayName: name });
-        
-        // Update Firestore immediately to override the 'Anonymous' race condition in AuthContext
-        await setDoc(doc(db, 'users', userCredential.user.uid), {
-          displayName: name
-        }, { merge: true });
-
-        setGlobalToast('Account created successfully!');
-        handleClose();
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        setGlobalToast('Signed in successfully!');
-        handleClose();
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      setGlobalToast('Signed in successfully!');
+      handleClose();
     } catch (err: any) {
       setError(err.message);
     }
@@ -105,16 +89,6 @@ export default function LoginModal() {
           <div className={styles.divider}>or</div>
 
           <form className={styles.form} onSubmit={handleEmailAuth}>
-            {isSignUp && (
-              <input 
-                type="text" 
-                placeholder="Full Name" 
-                className={styles.input} 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            )}
             <input 
               type="email" 
               placeholder="Email address" 
@@ -141,20 +115,9 @@ export default function LoginModal() {
               </button>
             </div>
             <button type="submit" className={styles.submitBtn}>
-              {isSignUp ? 'Create Account' : 'Sign In'}
+              Sign In
             </button>
           </form>
-
-          <p style={{ marginTop: '24px', color: 'var(--text-secondary)' }}>
-            {isSignUp ? 'Already have an account? ' : 'New to Sakthi Speaks? '}
-            <button 
-              style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}
-              onClick={() => setIsSignUp(!isSignUp)}
-              type="button"
-            >
-              {isSignUp ? 'Sign In' : 'Create Account'}
-            </button>
-          </p>
 
           {error && <div className={styles.error}>{error}</div>}
         </motion.div>
