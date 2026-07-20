@@ -49,6 +49,15 @@ export default function LoginModal() {
     e.preventDefault();
     setError('');
     setSuccessMsg('');
+
+    // Strictly enforce a standard valid email domain (e.g. username@gmail.com)
+    // This rejects junk domains like .zz or .cc
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|in|edu|gov|co)$/i;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address (e.g., username@gmail.com)");
+      return;
+    }
+
     try {
       if (isSignUp) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -88,6 +97,8 @@ export default function LoginModal() {
       if (err.code === 'auth/email-already-in-use') {
         setSuccessMsg('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
         setIsSignUp(false);
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.');
       } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
         setError('Invalid email or password. Please try again or create an account.');
       } else {
@@ -186,32 +197,33 @@ export default function LoginModal() {
             </button>
           </p>
 
-          {error && <div className={styles.error} style={{ marginTop: '1rem', color: 'var(--destructive)', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
-          
-          <AnimatePresence>
-            {successMsg && (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95, y: -5 }} 
-                animate={{ opacity: 1, scale: 1, y: 0 }} 
-                exit={{ opacity: 0, scale: 0.95, y: -5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                style={{ 
-                  marginTop: '1.5rem', 
-                  padding: '1rem', 
-                  backgroundColor: 'rgba(234, 179, 8, 0.1)', 
-                  color: '#eab308', 
-                  borderRadius: '12px', 
-                  fontSize: '0.95rem', 
-                  textAlign: 'center', 
-                  border: '1px solid rgba(234, 179, 8, 0.2)',
-                  fontWeight: 500,
-                  lineHeight: '1.4'
-                }}
-              >
-                {successMsg}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <div className={styles.messageContainer}>
+            {error && <div className={styles.error}>{error}</div>}
+            
+            <AnimatePresence>
+              {successMsg && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95, y: -5 }} 
+                  animate={{ opacity: 1, scale: 1, y: 0 }} 
+                  exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  style={{ 
+                    padding: '1rem', 
+                    backgroundColor: 'rgba(234, 179, 8, 0.1)', 
+                    color: '#eab308', 
+                    borderRadius: '12px', 
+                    fontSize: '0.95rem', 
+                    textAlign: 'center', 
+                    border: '1px solid rgba(234, 179, 8, 0.2)',
+                    fontWeight: 500,
+                    lineHeight: '1.4'
+                  }}
+                >
+                  {successMsg}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
