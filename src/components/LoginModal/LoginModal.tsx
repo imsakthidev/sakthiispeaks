@@ -2,20 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  signInWithPopup, GoogleAuthProvider, OAuthProvider, 
-  signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile
+  signInWithPopup, GoogleAuthProvider
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
-import { X, Eye, EyeOff } from 'lucide-react';
+import { X } from 'lucide-react';
 import styles from './LoginModal.module.css';
 
 export default function LoginModal() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   
   const { user, isLoginModalOpen, setIsLoginModalOpen, setGlobalToast } = useAuth();
@@ -24,8 +19,6 @@ export default function LoginModal() {
 
   const handleClose = () => {
     setError('');
-    setEmail('');
-    setPassword('');
     setIsLoginModalOpen(false);
   };
 
@@ -41,17 +34,7 @@ export default function LoginModal() {
     }
   };
 
-  const handleEmailAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setGlobalToast('Signed in successfully!');
-      handleClose();
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
+
 
   return (
     <AnimatePresence>
@@ -74,7 +57,7 @@ export default function LoginModal() {
           <h1 className={styles.title}>Login</h1>
           <p className={styles.subtitle}>Sign in to manage your projects or leave a review.</p>
 
-          <div className={styles.providerButtons}>
+          <div className={styles.providerButtons} style={{ marginTop: '2rem' }}>
             <button className={`${styles.btn} ${styles.googleBtn}`} onClick={handleGoogleLogin}>
               <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -86,40 +69,7 @@ export default function LoginModal() {
             </button>
           </div>
 
-          <div className={styles.divider}>or</div>
-
-          <form className={styles.form} onSubmit={handleEmailAuth}>
-            <input 
-              type="email" 
-              placeholder="Email address" 
-              className={styles.input} 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <div className={styles.passwordWrapper}>
-              <input 
-                type={showPassword ? "text" : "password"} 
-                placeholder="Password" 
-                className={styles.input} 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <button 
-                type="button" 
-                className={styles.eyeButton} 
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
-            <button type="submit" className={styles.submitBtn}>
-              Sign In
-            </button>
-          </form>
-
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles.error} style={{ marginTop: '1rem' }}>{error}</div>}
         </motion.div>
       </motion.div>
     </AnimatePresence>
