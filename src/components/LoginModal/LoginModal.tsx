@@ -19,6 +19,7 @@ export default function LoginModal() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   
   const { user, isLoginModalOpen, setIsLoginModalOpen, setGlobalToast } = useAuth();
 
@@ -26,6 +27,7 @@ export default function LoginModal() {
 
   const handleClose = () => {
     setError('');
+    setSuccessMsg('');
     setEmail('');
     setPassword('');
     setIsLoginModalOpen(false);
@@ -33,6 +35,7 @@ export default function LoginModal() {
 
   const handleGoogleLogin = async () => {
     setError('');
+    setSuccessMsg('');
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
@@ -45,6 +48,7 @@ export default function LoginModal() {
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccessMsg('');
     try {
       if (isSignUp) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -64,7 +68,7 @@ export default function LoginModal() {
         // Immediately sign them out so they must verify
         await signOut(auth);
 
-        setError('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
+        setSuccessMsg('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
         // Switch to sign in view so they can log in later
         setIsSignUp(false);
       } else {
@@ -81,7 +85,12 @@ export default function LoginModal() {
         handleClose();
       }
     } catch (err: any) {
-      setError(err.message);
+      if (err.code === 'auth/email-already-in-use') {
+        setSuccessMsg('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
+        setIsSignUp(false);
+      } else {
+        setError(err.message);
+      }
     }
   };
   return (
@@ -167,6 +176,7 @@ export default function LoginModal() {
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setError('');
+                setSuccessMsg('');
               }}
               type="button"
             >
@@ -175,6 +185,28 @@ export default function LoginModal() {
           </p>
 
           {error && <div className={styles.error} style={{ marginTop: '1rem', color: 'var(--destructive)', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
+          
+          <AnimatePresence>
+            {successMsg && (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                exit={{ opacity: 0, y: -10 }}
+                style={{ 
+                  marginTop: '1rem', 
+                  padding: '1rem', 
+                  backgroundColor: 'rgba(16, 185, 129, 0.1)', 
+                  color: '#10b981', 
+                  borderRadius: '8px', 
+                  fontSize: '0.9rem', 
+                  textAlign: 'center', 
+                  border: '1px solid rgba(16, 185, 129, 0.2)' 
+                }}
+              >
+                {successMsg}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </motion.div>
     </AnimatePresence>
