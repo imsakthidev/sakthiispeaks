@@ -88,6 +88,8 @@ export default function LoginModal() {
       if (err.code === 'auth/email-already-in-use') {
         setSuccessMsg('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
         setIsSignUp(false);
+      } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        setError('Invalid email or password. Please try again or create an account.');
       } else {
         setError(err.message);
       }
