@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Check if user is an admin by looking up their role in the users collection
+    function isAdmin() {
+      return request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    match /users/{userId} {
+      // Users can read and write their own profile
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Admins have full access
+      allow read, write: if isAdmin();
+    }
+    
+    match /testimonials/{docId} {
+      // Anyone can view approved testimonials
+      allow read: if resource.data.status == 'approved';
+      // Any logged-in user can submit a pending testimonial
+      allow create: if request.auth != null && request.resource.data.status == 'pending';
+      // Admins have full access to approve/reject/delete
+      allow read, write: if isAdmin();
+    }
+    
+    match /faqs/{docId} {
+      // Anyone can view approved FAQs
+      allow read: if resource.data.status == 'approved';
+      // Anyone can submit a pending FAQ (chatbot submissions)
+      allow create: if request.resource.data.status == 'pending';
+      // Admins have full access to approve/reject/delete
+      allow read, write: if isAdmin();
+    }
+    
+    match /queries/{docId} {
+      // Anyone can submit a contact form query
+      allow create: if request.resource.data.status == 'new';
+      // Admins have full access to view/delete queries
+      allow read, write: if isAdmin();
+    }
+    
+    match /projects/{docId} {
+      // Anyone can view projects
+      allow read: if true;
+      // Only admins can modify projects
+      allow write: if isAdmin();
+    }
+    
+    match /skills/{docId} {
+      // Anyone can view skills
+      allow read: if true;
+      // Only admins can modify skills
+      allow write: if isAdmin();
+    }
+  }
+}

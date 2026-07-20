@@ -4,6 +4,16 @@
   right: 2rem;
   z-index: 100;
   font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.floatingButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .floatingButton {
@@ -88,8 +98,40 @@
 }
 
 .headerSubtitle {
-  font-size: 0.75rem;
-  opacity: 0.8;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.onlineDot {
+  width: 8px;
+  height: 8px;
+  background-color: #25D366;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #25D366;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.onlineText {
+  color: #25D366;
+  font-weight: 500;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 4px #25D366;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 12px #25D366, 0 0 4px #25D366;
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 4px #25D366;
+  }
 }
 
 .closeButton {
@@ -224,10 +266,78 @@
 .sendButton:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  background: var(--surface-bg);
+  border-color: var(--glass-border);
 }
 
 .sendButton:not(:disabled):hover {
   transform: scale(1.05);
+}
+
+/* Suggestion Pills */
+.suggestionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 12px;
+}
+
+.suggestionPill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.suggestionPill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.suggestionPill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* WhatsApp Link */
+.whatsappFloating {
+  background-color: #25D366;
+  color: white;
+}
+
+.whatsappFloating:hover {
+  background-color: #1ebe57;
+  transform: scale(1.05);
+}
+
+.whatsappLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 12px 16px;
+  border-top: 1px solid var(--glass-border);
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.whatsappLink:hover {
+  color: #25D366; /* WhatsApp Green */
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.waIcon {
+  color: #25D366;
 }
 
 @media (max-width: 480px) {

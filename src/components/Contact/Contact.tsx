@@ -3,11 +3,24 @@ import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { useAuth } from '@/context/AuthContext';
 import styles from './Contact.module.css';
 
 export default function Contact() {
   const [status, setStatus] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const { t, language } = useLanguage();
+  const { user } = useAuth();
+
+  React.useEffect(() => {
+    if (user) {
+      setName(user.displayName || '');
+      setEmail(user.email || '');
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,21 +29,20 @@ export default function Contact() {
     
     try {
       const formData = new FormData(form);
-      const response = await fetch('https://formsubmit.co/ajax/sakthiispeaks@gmail.com', {
-        method: 'POST',
-        headers: { 
-            'Accept': 'application/json'
-        },
-        body: formData
+      
+      await addDoc(collection(db, 'queries'), {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        mobile: formData.get('mobile'),
+        message: formData.get('message'),
+        status: 'new',
+        createdAt: serverTimestamp()
       });
       
-      if (response.ok) {
-        setStatus(t('contact.success'));
-        form.reset();
-      } else {
-        setStatus(t('contact.error'));
-      }
+      setStatus(t('contact.success'));
+      form.reset();
     } catch (error) {
+      console.error("Error submitting query:", error);
       setStatus(t('contact.error'));
     }
     
@@ -91,27 +103,34 @@ export default function Contact() {
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.inputGroup}>
                 <label htmlFor="name" className={styles.label}>{t('contact.name')}</label>
-                <input type="text" id="name" name="name" className={styles.input} placeholder="John Doe" required />
+                <input type="text" id="name" name="name" className={styles.input} placeholder="John Doe" required value={name} onChange={e => setName(e.target.value)} />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="email" className={styles.label}>{t('contact.email')}</label>
-                <input type="email" id="email" name="email" className={styles.input} placeholder="john@example.com" required />
+                <input type="email" id="email" name="email" className={styles.input} placeholder="john@example.com" required value={email} onChange={e => setEmail(e.target.value)} />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="mobile" className={styles.label}>Mobile Number</label>
-                <input type="tel" id="mobile" name="mobile" className={styles.input} placeholder="+91 98765 43210" required />
+                <input 
+                  type="tel" 
+                  id="mobile" 
+                  name="mobile" 
+                  className={styles.input} 
+                  placeholder="9876543210" 
+                  required 
+                  pattern="[0-9]{10}"
+                  minLength={10}
+                  maxLength={10}
+                  title="Please enter exactly 10 digits"
+                />
               </div>
               <div className={styles.inputGroup}>
                 <label htmlFor="message" className={styles.label}>{t('contact.message')}</label>
                 <textarea id="message" name="message" className={styles.textarea} placeholder="How can I help you?" rows={5} required></textarea>
               </div>
               
-              {/* FormSubmit Configuration */}
-              <input type="hidden" name="_subject" value="New Portfolio Inquiry!" />
-              <input type="hidden" name="_captcha" value="false" />
-              
-              <button type="submit" className={styles.submitButton} disabled={status === t('contact.sending')}>
-                {status === t('contact.sending') ? t('contact.sending') : t('contact.send')}
+              <button type="submit" className={styles.submitButton} disabled={status === 'Sending...'}>
+                {status === 'Sending...' ? 'Sending...' : t('contact.send')}
               </button>
               
               {status && status !== t('contact.sending') && (

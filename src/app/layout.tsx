@@ -8,6 +8,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 import ChatAssistant from "@/components/ChatAssistant/ChatAssistant";
 import "./globals.css";
+import Navbar from "@/components/Navbar/Navbar";
+import { AuthProvider } from "@/context/AuthContext";
+import LoginModal from "@/components/LoginModal/LoginModal";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -95,11 +98,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LanguageProvider>
-            {children}
-            <ChatAssistant />
-            <Analytics />
-          </LanguageProvider>
+          <AuthProvider>
+            <LanguageProvider>
+              {children}
+              <ChatAssistant />
+              <Analytics />
+              <LoginModal />
+            </LanguageProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -3,6 +3,8 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import styles from './Projects.module.css';
 
 const projectsData = [
@@ -38,6 +40,28 @@ const projectsData = [
 
 export default function Projects() {
   const { t } = useLanguage();
+  const [projects, setProjects] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const q = query(collection(db, 'projects'), orderBy('order', 'asc'), limit(6));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setProjects(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        } else {
+          setProjects(projectsData);
+        }
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setProjects(projectsData);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   return (
     <section id="projects" className="section">
@@ -48,36 +72,40 @@ export default function Projects() {
         </div>
 
         <div className={styles.grid}>
-          {projectsData.map((project, index) => (
-            <motion.div 
-              key={project.id} 
-              className={styles.card}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className={styles.cardInner}>
-                <div className={styles.cardHeader}>
-                  <div className={styles.folderIcon}>📁</div>
-                  <div className={styles.cardLinks}>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
-                      <ExternalLink size={20} />
-                    </a>
+          {loading ? (
+            <div style={{ textAlign: 'center', width: '100%', color: '#9ca3af', minHeight: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading projects...</div>
+          ) : (
+            projects.map((project, index) => (
+              <motion.div 
+                key={project.id} 
+                className={styles.card}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className={styles.cardInner}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.folderIcon}>📁</div>
+                    <div className={styles.cardLinks}>
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
+                        <ExternalLink size={20} />
+                      </a>
+                    </div>
+                  </div>
+
+                  <h3 className={styles.projectTitle}>{project.title}</h3>
+                  <p className={styles.projectDesc}>{project.description}</p>
+
+                  <div className={styles.techStack}>
+                    {project.tech && (Array.isArray(project.tech) ? project.tech : (project.tech as string).split(',')).map((tech: string, i: number) => (
+                      <span key={i} className={styles.techBadge}>{tech.trim()}</span>
+                    ))}
                   </div>
                 </div>
-
-                <h3 className={styles.projectTitle}>{project.title}</h3>
-                <p className={styles.projectDesc}>{project.description}</p>
-
-                <div className={styles.techStack}>
-                  {project.tech.map((tech, index) => (
-                    <span key={index} className={styles.techBadge}>{tech}</span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))
+          )}
         </div>
 
 

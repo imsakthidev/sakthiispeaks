@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, User, Bot, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 import styles from './ChatAssistant.module.css';
 
 interface Message {
@@ -13,6 +14,7 @@ interface Message {
 
 export default function ChatAssistant() {
   const { t, language } = useLanguage();
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -24,6 +26,14 @@ export default function ChatAssistant() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const SUGGESTED_QUESTIONS = [
+    "What are your website packages?",
+    "How much does a SaaS MVP cost?",
+    "Do you do YouTube Shorts editing?",
+    "What is the Complete Personal Brand package?",
+    "How do we get started?"
+  ];
 
   useEffect(() => {
     // Automatically open the chat window 1.5 seconds after page load for a dynamic feel
@@ -72,23 +82,40 @@ export default function ChatAssistant() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]); // Also scroll when loading state changes
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSuggestionClick = (question: string) => {
+    if (isLoading) return;
+    submitMessage(question);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
+    submitMessage(input.trim());
+  };
 
-    const userMessage = input.trim();
+  const submitMessage = async (userMessage: string) => {
     setInput('');
     const newMessages: Message[] = [...messages, { id: Date.now().toString(), role: 'user', content: userMessage }];
     setMessages(newMessages);
     setIsLoading(true);
 
     try {
+      const payload = { 
+        messages: newMessages, 
+        language,
+        user: user ? {
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL
+        } : null
+      };
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages, language }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -143,13 +170,26 @@ export default function ChatAssistant() {
 
   return (
     <div className={styles.chatWrapper}>
-      {/* Floating Button */}
-      <button 
-        className={`${styles.floatingButton} ${isOpen ? styles.hidden : ''}`}
-        onClick={() => setIsOpen(true)}
-      >
-        <MessageSquare size={24} />
-      </button>
+      {/* Floating Buttons */}
+      <div className={styles.floatingButtonsContainer}>
+        <button 
+          className={`${styles.floatingButton} ${isOpen ? styles.hidden : ''}`}
+          onClick={() => setIsOpen(true)}
+        >
+          <MessageSquare size={24} />
+        </button>
+
+        <a 
+          href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.floatingButton} ${styles.whatsappFloating} ${isOpen ? styles.hidden : ''}`}
+        >
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+        </a>
+      </div>
 
       {/* Chat Window */}
       <div className={`${styles.chatWindow} ${isOpen ? styles.open : ''}`}>
@@ -158,7 +198,10 @@ export default function ChatAssistant() {
             <Bot size={20} className={styles.headerIcon} />
             <div>
               <h3 className={styles.headerTitle}>Sakthi Speaks AI</h3>
-              <span className={styles.headerSubtitle}>Online • Replies instantly</span>
+              <span className={styles.headerSubtitle}>
+                <span className={styles.onlineDot}></span> 
+                <span className={styles.onlineText}>Online</span> • Replies instantly
+              </span>
             </div>
           </div>
           <button className={styles.closeButton} onClick={() => setIsOpen(false)}>
@@ -193,6 +236,22 @@ export default function ChatAssistant() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Suggested Questions */}
+        {messages.length === 1 && !isLoading && (
+          <div className={styles.suggestionsContainer}>
+            {SUGGESTED_QUESTIONS.map((q, idx) => (
+              <button 
+                key={idx} 
+                className={styles.suggestionPill} 
+                onClick={() => handleSuggestionClick(q)}
+                disabled={isLoading}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className={styles.inputForm}>
           <input
             type="text"
@@ -209,6 +268,19 @@ export default function ChatAssistant() {
             <Send size={18} />
           </button>
         </form>
+
+        {/* WhatsApp Link */}
+        <a 
+          href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className={styles.whatsappLink}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className={styles.waIcon}>
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          Prefer a human? Chat on WhatsApp &rarr;
+        </a>
       </div>
     </div>
   );

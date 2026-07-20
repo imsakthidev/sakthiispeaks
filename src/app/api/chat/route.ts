@@ -1,6 +1,8 @@
 import fs from 'fs';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -57,6 +59,7 @@ Note: Always say "Starting from" for premium and custom services.
 - Exclusions: GST, domains, hosting, ad spend, and premium stock assets are extra.
 
 ### 🌟 INSTRUCTIONS
+- LANGUAGE SUPPORT: You are fluent in English, Tamil, Malayalam, Telugu, Kannada, and Hindi. You MUST automatically detect the language the user is speaking and reply fluently in that exact same language.
 - STRICTLY STAY ON TOPIC: ONLY answer questions related to our services, pricing, digital marketing, web development, and content creation. If a user asks an unrelated question (like coding help, math, general knowledge, or trivia), politely decline and steer the conversation back to how we can help them grow their digital presence.
 - Answer concisely but with absolute confidence and premium tone.
 - NEVER invent prices or services not listed above. If something isn't explicitly listed, say we provide custom quotes based on requirements.
@@ -66,7 +69,7 @@ Note: Always say "Starting from" for premium and custom services.
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, user } = await req.json();
 
     const result = streamText({
       model: google('gemini-3.5-flash'),
@@ -77,6 +80,25 @@ export async function POST(req: Request) {
         console.error('Stream Error:', error);
         fs.writeFileSync('chat-stream-error.log', String(error?.error || error));
       },
+      onFinish: async ({ text }) => {
+        try {
+          const userMessage = messages[messages.length - 1];
+          if (userMessage && userMessage.role === 'user') {
+            // Log this conversation to FAQs as pending
+            await addDoc(collection(db, 'faqs'), {
+              question: userMessage.content,
+              answer: text,
+              status: 'pending',
+              userId: user?.uid || null,
+              userName: user?.displayName || 'Anonymous Visitor',
+              userPhoto: user?.photoURL || null,
+              createdAt: serverTimestamp(),
+            });
+          }
+        } catch (dbError) {
+          console.error('Failed to log FAQ to Firebase:', dbError);
+        }
+      }
     });
 
     return result.toTextStreamResponse();
