@@ -184,6 +184,7 @@ export default function ChatAssistant() {
             <motion.button 
               className={styles.floatingButton}
               onClick={() => setIsOpen(true)}
+              aria-label="Open Chat"
               whileHover={{ scale: 1.1, rotate: 10 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -194,6 +195,7 @@ export default function ChatAssistant() {
               href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Chat on WhatsApp"
               className={`${styles.floatingButton} ${styles.whatsappFloating}`}
               whileHover={{ scale: 1.1, rotate: -10 }}
               whileTap={{ scale: 0.9 }}
@@ -230,6 +232,7 @@ export default function ChatAssistant() {
           <motion.button 
             className={styles.closeButton} 
             onClick={() => setIsOpen(false)}
+            aria-label="Close Chat"
             whileHover={{ rotate: 90, scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -306,6 +309,7 @@ export default function ChatAssistant() {
           <motion.button 
             type="submit" 
             className={styles.sendButton}
+            aria-label="Send Message"
             disabled={!input.trim() || isLoading}
             whileHover={!input.trim() || isLoading ? {} : { scale: 1.1, x: 2 }}
             whileTap={!input.trim() || isLoading ? {} : { scale: 0.9 }}
@@ -319,6 +323,7 @@ export default function ChatAssistant() {
           href="https://wa.me/919585992141?text=Hi%20Sakthi,%20I'd%20like%20to%20discuss%20a%20project!" 
           target="_blank" 
           rel="noopener noreferrer" 
+          aria-label="Chat on WhatsApp"
           className={styles.whatsappLink}
           whileHover={{ backgroundColor: "rgba(37, 211, 102, 0.15)" }}
         >

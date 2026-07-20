@@ -41,6 +41,23 @@ export default function Contact() {
         createdAt: serverTimestamp()
       });
       
+      // Also send an email notification to the site owner
+      try {
+        await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            mobile: formData.get('mobile'),
+            message: formData.get('message'),
+          }),
+        });
+      } catch (emailError) {
+        console.error("Failed to trigger email notification:", emailError);
+        // We don't throw here because the Firebase save was successful
+      }
+      
       setStatus(t('contact.success'));
       form.reset();
     } catch (error) {
