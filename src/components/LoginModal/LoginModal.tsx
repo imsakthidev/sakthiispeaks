@@ -58,6 +58,29 @@ export default function LoginModal() {
       return;
     }
 
+    if (isSignUp) {
+      if (password.length < 8) {
+        setError("Password must be at least 8 characters long.");
+        return;
+      }
+      if (!/[A-Z]/.test(password)) {
+        setError("Password must contain at least one uppercase letter.");
+        return;
+      }
+      if (!/[a-z]/.test(password)) {
+        setError("Password must contain at least one lowercase letter.");
+        return;
+      }
+      if (!/[0-9]/.test(password)) {
+        setError("Password must contain at least one number.");
+        return;
+      }
+      if (!/[^A-Za-z0-9]/.test(password)) {
+        setError("Password must contain at least one special character.");
+        return;
+      }
+    }
+
     try {
       if (isSignUp) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
