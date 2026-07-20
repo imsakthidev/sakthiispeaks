@@ -2,15 +2,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  signInWithPopup, GoogleAuthProvider
+  signInWithPopup, GoogleAuthProvider,
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile,
+  sendEmailVerification, signOut
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import styles from './LoginModal.module.css';
 
 export default function LoginModal() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   
   const { user, isLoginModalOpen, setIsLoginModalOpen, setGlobalToast } = useAuth();
@@ -19,6 +26,8 @@ export default function LoginModal() {
 
   const handleClose = () => {
     setError('');
+    setEmail('');
+    setPassword('');
     setIsLoginModalOpen(false);
   };
 
@@ -33,9 +42,48 @@ export default function LoginModal() {
       setError(err.message);
     }
   };
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    try {
+      if (isSignUp) {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        
+        // Set the display name
+        await updateProfile(userCredential.user, { displayName: name });
+        
+        // Send verification email
+        await sendEmailVerification(userCredential.user);
+        
+        // Save to Firestore
+        await setDoc(doc(db, 'users', userCredential.user.uid), {
+          displayName: name,
+          email: userCredential.user.email
+        }, { merge: true });
 
+        // Immediately sign them out so they must verify
+        await signOut(auth);
 
+        setError('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
+        // Switch to sign in view so they can log in later
+        setIsSignUp(false);
+      } else {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        
+        // Check if email is verified (Google users bypass this automatically, email/pass users must verify)
+        if (!userCredential.user.emailVerified) {
+          await signOut(auth);
+          setError('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
+          return;
+        }
 
+        setGlobalToast('Signed in successfully!');
+        handleClose();
+      }
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
   return (
     <AnimatePresence>
       <motion.div 
@@ -57,7 +105,7 @@ export default function LoginModal() {
           <h1 className={styles.title}>Login</h1>
           <p className={styles.subtitle}>Sign in to manage your projects or leave a review.</p>
 
-          <div className={styles.providerButtons} style={{ marginTop: '2rem' }}>
+          <div className={styles.providerButtons}>
             <button className={`${styles.btn} ${styles.googleBtn}`} onClick={handleGoogleLogin}>
               <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -69,7 +117,64 @@ export default function LoginModal() {
             </button>
           </div>
 
-          {error && <div className={styles.error} style={{ marginTop: '1rem' }}>{error}</div>}
+          <div className={styles.divider}>or</div>
+
+          <form className={styles.form} onSubmit={handleEmailAuth}>
+            {isSignUp && (
+              <input 
+                type="text" 
+                placeholder="Full Name" 
+                className={styles.input} 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            )}
+            <input 
+              type="email" 
+              placeholder="Email address" 
+              className={styles.input} 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <div className={styles.passwordWrapper}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                placeholder="Password" 
+                className={styles.input} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button 
+                type="button" 
+                className={styles.eyeButton} 
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            <button type="submit" className={styles.submitBtn}>
+              {isSignUp ? 'Create Account' : 'Sign In'}
+            </button>
+          </form>
+
+          <p style={{ marginTop: '24px', color: 'var(--text-secondary)' }}>
+            {isSignUp ? 'Already have an account? ' : 'New to Sakthi Speaks? '}
+            <button 
+              style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontWeight: 600 }}
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+              }}
+              type="button"
+            >
+              {isSignUp ? 'Sign In' : 'Create Account'}
+            </button>
+          </p>
+
+          {error && <div className={styles.error} style={{ marginTop: '1rem', color: 'var(--destructive)', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
         </motion.div>
       </motion.div>
     </AnimatePresence>
