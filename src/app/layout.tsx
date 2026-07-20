@@ -66,6 +66,9 @@ export const metadata: Metadata = {
     title: "Sakthi Speaks | Web Developer, AI Solutions & Digital Creator",
     description: "Professional Website Development, Video Editing, AI Solutions, Storytelling, Content Writing & Social Media Management.",
   },
+  icons: {
+    icon: '/profile2.jpg', // Default static icon for Google Search Results
+  },
   verification: {
     google: "Al0th2ZA8M6PKZHrUDc8cDJFbbR6lrI0wxS3iy0DP4c",
   },
