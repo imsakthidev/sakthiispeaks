@@ -77,7 +77,7 @@ export default function LoginModal() {
         // Check if email is verified (Google users bypass this automatically, email/pass users must verify)
         if (!userCredential.user.emailVerified) {
           await signOut(auth);
-          setError('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
+          setSuccessMsg('Please confirm your email first. Open the confirmation link we emailed you, then log in here.');
           return;
         }
 
@@ -191,18 +191,21 @@ export default function LoginModal() {
           <AnimatePresence>
             {successMsg && (
               <motion.div 
-                initial={{ opacity: 0, y: -10 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                exit={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, scale: 0.95, y: -5 }} 
+                animate={{ opacity: 1, scale: 1, y: 0 }} 
+                exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 style={{ 
-                  marginTop: '1rem', 
+                  marginTop: '1.5rem', 
                   padding: '1rem', 
-                  backgroundColor: 'rgba(16, 185, 129, 0.1)', 
-                  color: '#10b981', 
-                  borderRadius: '8px', 
-                  fontSize: '0.9rem', 
+                  backgroundColor: 'rgba(234, 179, 8, 0.1)', 
+                  color: '#eab308', 
+                  borderRadius: '12px', 
+                  fontSize: '0.95rem', 
                   textAlign: 'center', 
-                  border: '1px solid rgba(16, 185, 129, 0.2)' 
+                  border: '1px solid rgba(234, 179, 8, 0.2)',
+                  fontWeight: 500,
+                  lineHeight: '1.4'
                 }}
               >
                 {successMsg}
