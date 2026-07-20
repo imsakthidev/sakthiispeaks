@@ -84,9 +84,9 @@ export default function Navbar() {
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.navContainer}`}>
-        <a href="#home" className={styles.logo}>
+        <Link href="/" className={styles.logo}>
           <span className="text-gradient">Sakthi Speaks</span>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className={styles.navLinks}>

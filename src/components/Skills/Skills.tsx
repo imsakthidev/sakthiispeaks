@@ -1,6 +1,7 @@
 import React from 'react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import styles from './Skills.module.css';
 
 const skillsData = [
@@ -38,7 +39,7 @@ export default function Skills() {
     <section id="skills" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>My Skills</h2>
+          <AnimatedTitle className={styles.title} text="My Skills" />
           <div className={styles.line}></div>
         </div>
         

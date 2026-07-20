@@ -2,6 +2,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import Navbar from '@/components/Navbar/Navbar';
+import BlogAnimationWrapper from '@/components/BlogAnimationWrapper';
 import { Calendar, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import styles from '../blog.module.css';
@@ -36,35 +37,31 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <main className={styles.main}>
       <Navbar />
       
-      <article className={`container ${styles.postArticle}`}>
-        <Link 
-          href="/blog" 
-          className={styles.backLink}
-        >
-          <ArrowLeft size={16} />
-          {post.language === 'en' ? 'Back to Blog' : 'வலைப்பதிவுக்குத் திரும்பு'}
-        </Link>
-        
-        <header className={styles.postHeader}>
-          <h1 className={styles.postTitle}>
-            {post.title}
-          </h1>
-          <div className={styles.postMeta}>
-            <Calendar size={16} />
-            <span>{post.date}</span>
-          </div>
-        </header>
+      <BlogAnimationWrapper>
+        <article className={`container ${styles.postArticle}`}>
+          <Link 
+            href="/blog" 
+            className={styles.backLink}
+          >
+            <ArrowLeft size={16} />
+            {post.language === 'en' ? 'Back to Blog' : 'வலைப்பதிவுக்குத் திரும்பு'}
+          </Link>
+          
+          <header className={styles.postHeader}>
+            <h1 className={styles.postTitle}>
+              {post.title}
+            </h1>
+            <div className={styles.postMeta}>
+              <Calendar size={16} />
+              <span>{post.date}</span>
+            </div>
+          </header>
 
-        {post.image && (
-          <div className={styles.postImage}>
-            <img src={post.image} alt={post.title} />
+          <div className={styles.content}>
+            <ReactMarkdown>{post.content}</ReactMarkdown>
           </div>
-        )}
-
-        <div className={styles.content}>
-          <ReactMarkdown>{post.content}</ReactMarkdown>
-        </div>
-      </article>
+        </article>
+      </BlogAnimationWrapper>
     </main>
   );
 }

@@ -2,6 +2,8 @@
 import React from 'react';
 import { Video, Camera, Briefcase, Mail, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import styles from './SocialLinks.module.css';
 
 export default function SocialLinks() {
@@ -37,7 +39,7 @@ export default function SocialLinks() {
     <section id="links" className="section">
       <div className={`container ${styles.container}`}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Connect With Me</h2>
+          <AnimatedTitle className={styles.title} text="Connect With Me" />
           <div className={styles.line}></div>
         </div>
         

@@ -52,6 +52,18 @@ const ScrambleText = ({ text }: { text: string }) => {
 
 export default function Hero() {
   const { t } = useLanguage();
+  const [startAnim, setStartAnim] = React.useState(false);
+
+  React.useEffect(() => {
+    const splashShown = sessionStorage.getItem('splashShown');
+    if (!splashShown) {
+      // 2500ms for splash display + 800ms for splash exit animation = 3300ms
+      const timer = setTimeout(() => setStartAnim(true), 3300);
+      return () => clearTimeout(timer);
+    } else {
+      setStartAnim(true);
+    }
+  }, []);
 
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 1000], ["0%", "50%"]);
@@ -121,13 +133,13 @@ export default function Hero() {
           <motion.div 
             className={styles.content}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={startAnim ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.div 
               className={styles.badge}
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={startAnim ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               {t('hero.badge')}
@@ -137,7 +149,7 @@ export default function Hero() {
               className={styles.title}
               variants={containerVariants}
               initial="hidden"
-              animate="visible"
+              animate={startAnim ? "visible" : "hidden"}
             >
               {splitText(t('hero.title1'))} 
               <span className="text-gradient">{splitText(t('hero.title2'))}</span>
@@ -147,7 +159,7 @@ export default function Hero() {
               className={styles.subtitle}
               variants={containerVariants}
               initial="hidden"
-              animate="visible"
+              animate={startAnim ? "visible" : "hidden"}
             >
               {splitText(t('hero.subtitle'))}
             </motion.p>
@@ -181,7 +193,7 @@ export default function Hero() {
           <motion.div
             className={styles.imageContainer}
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={startAnim ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             style={{ y: imageY, position: 'relative' }}
           >

@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
 import { BlogPost } from '@/lib/blog';
 import { ArrowRight, Calendar } from 'lucide-react';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import styles from './blog.module.css';
 
 interface BlogClientProps {
@@ -21,9 +22,9 @@ export default function BlogClient({ posts }: BlogClientProps) {
   return (
     <div className="container">
       <div className={styles.header}>
-        <h1 className={styles.title}>
-          <span className="text-gradient">{t('nav.blog')}</span>
-        </h1>
+        <div className={styles.title} style={{ marginBottom: '10px' }}>
+          <AnimatedTitle className={styles.title} text={t('nav.blog')} />
+        </div>
         <p className={styles.subtitle}>
           {language === 'en' 
             ? 'Insights, tutorials, and strategies for digital growth.' 
@@ -47,15 +48,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
             >
               <Link href={`/blog/${post.slug}`} style={{ display: 'block', height: '100%' }}>
                 <div className={`${styles.card} glass`}>
-                  {post.image && (
-                    <div className={styles.imageContainer}>
-                      <img 
-                        src={post.image} 
-                        alt={post.title} 
-                        className={styles.image}
-                      />
-                    </div>
-                  )}
+
                   
                   <div className={styles.meta}>
                     <Calendar size={14} />

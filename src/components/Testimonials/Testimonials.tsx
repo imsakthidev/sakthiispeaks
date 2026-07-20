@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Quote } from 'lucide-react';
+import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useAuth } from '@/context/AuthContext';
+import { useLanguage } from '@/context/LanguageContext';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import ReviewForm from './ReviewForm';
 import styles from './Testimonials.module.css';
 
@@ -93,7 +95,7 @@ export default function Testimonials() {
         
         <div className={styles.headerRow}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Client Success</h2>
+            <AnimatedTitle className={styles.title} text="Client Success" />
             <div className={styles.line}></div>
           </div>
           <button className={styles.leaveReviewBtn} onClick={handleLeaveReview}>

@@ -37,10 +37,12 @@ export default function ChatAssistant() {
   ];
 
   useEffect(() => {
-    // Automatically open the chat window 1.5 seconds after page load for a dynamic feel
+    // Automatically open the chat window 1.5 seconds after page load (or 4.8s if splash screen is running)
+    const splashShown = sessionStorage.getItem('splashShown');
+    const delay = splashShown ? 1500 : 4800;
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 1500);
+    }, delay);
     return () => clearTimeout(timer);
   }, []);
 

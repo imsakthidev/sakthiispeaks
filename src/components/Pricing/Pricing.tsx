@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Check, Info, Layout, Database, TrendingUp, PenTool, Bot, Code, Video, Megaphone, Smartphone, Star, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/context/LanguageContext';
+import AnimatedTitle from '@/components/AnimatedTitle/AnimatedTitle';
 import styles from './Pricing.module.css';
 
 export default function Pricing() {
@@ -20,19 +21,13 @@ export default function Pricing() {
   return (
     <section id="pricing" className="section">
       <div className={`container ${styles.container}`}>
-        <motion.div 
-          className={styles.header}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className={styles.title}>Services & Pricing</h2>
+        <div className={styles.header}>
+          <AnimatedTitle className={styles.title} text="Services & Pricing" />
           <div className={styles.line}></div>
           <p className={styles.subtitle}>
             Personal Brand & Digital Growth Consulting. We build businesses, not just websites.
           </p>
-        </motion.div>
+        </div>
 
         {/* 5-Tab Navigation */}
         <div className={styles.tabsScrollWrapper}>
