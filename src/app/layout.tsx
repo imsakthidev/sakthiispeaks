@@ -14,6 +14,7 @@ import LoginModal from "@/components/LoginModal/LoginModal";
 import ScrollProgress from "@/components/ScrollProgress/ScrollProgress";
 import SplashScreen from "@/components/SplashScreen/SplashScreen";
 import FloatingOrbs from "@/components/FloatingOrbs/FloatingOrbs";
+import FaviconSetter from "@/components/FaviconSetter";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -65,9 +66,6 @@ export const metadata: Metadata = {
     title: "Sakthi Speaks | Web Developer, AI Solutions & Digital Creator",
     description: "Professional Website Development, Video Editing, AI Solutions, Storytelling, Content Writing & Social Media Management.",
   },
-  icons: {
-    icon: "/profile.PNG",
-  },
   verification: {
     google: "Al0th2ZA8M6PKZHrUDc8cDJFbbR6lrI0wxS3iy0DP4c",
   },
@@ -103,6 +101,7 @@ export default function RootLayout({
         >
           <AuthProvider>
             <LanguageProvider>
+              <FaviconSetter />
               <FloatingOrbs />
               <SplashScreen />
               <ScrollProgress />
