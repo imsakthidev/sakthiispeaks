@@ -33,28 +33,28 @@ export default function AdminDashboard() {
       // Fetch Reviews
       const allReviewsQ = query(collection(db, 'testimonials'));
       const reviewsSnap = await getDocs(allReviewsQ);
-      const reviews = reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const reviews = reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
       setPendingReviews(reviews.filter(r => r.status === 'pending'));
       setApprovedReviews(reviews.filter(r => r.status === 'approved'));
 
       // Fetch FAQs
       const allFaqsQ = query(collection(db, 'faqs'));
       const faqsSnap = await getDocs(allFaqsQ);
-      const faqs = faqsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const faqs = faqsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
       setPendingFAQs(faqs.filter(f => f.status === 'pending'));
       setApprovedFAQs(faqs.filter(f => f.status === 'approved'));
       
       // Fetch Users
       const allUsersQ = query(collection(db, 'users'));
       const usersSnap = await getDocs(allUsersQ);
-      const fetchedUsers = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const fetchedUsers = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
       // Filter out users who have been soft-deleted
       setUsers(fetchedUsers.filter((u: any) => u.status !== 'deleted'));
 
       // Fetch Queries
       const allQueriesQ = query(collection(db, 'queries'));
       const queriesSnap = await getDocs(allQueriesQ);
-      const fetchedQueries = queriesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const fetchedQueries = queriesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
       // Sort so newest is first (assuming createdAt exists)
       fetchedQueries.sort((a, b) => {
         const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
